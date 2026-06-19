@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Think Design School</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --amber:#EF9F27;
+  --amber-light:#FAC775;
+  --amber-dark:#BA7517;
+  --charcoal:#1E1C1A;
+  --charcoal2:#2C2A27;
+  --surface:#252320;
+  --surface2:#2E2C29;
+  --text:#F0EDE8;
+  --text-muted:#A8A29C;
+  --text-dim:#6B6560;
+  --border:#3A3835;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--charcoal);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 8%;position:sticky;top:0;z-index:100;
+  background:rgba(30,28,26,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.nav-logo-text .think{font-size:22px;font-weight:800;color:var(--amber);letter-spacing:-0.5px}
+.nav-logo-text .ds{font-size:11px;font-weight:400;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:8px}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:14px;font-weight:500;padding:8px 16px;border-radius:8px;transition:all .2s}
+.nav-links a:hover{color:var(--text);background:var(--surface2)}
+.nav-cta{background:var(--amber)!important;color:var(--charcoal)!important;font-weight:600!important;border-radius:10px!important}
+.nav-cta:hover{background:var(--amber-light)!important}
+
+/* ── PAGE HERO ── */
+.page-hero{
+  padding:80px 8% 60px;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+.page-hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 80% at 20% 50%, rgba(239,159,39,0.05) 0%, transparent 70%);
+  pointer-events:none;
+}
+.page-hero-grid{
+  position:absolute;inset:0;opacity:0.025;
+  background-image:linear-gradient(var(--amber) 1px,transparent 1px),linear-gradient(90deg,var(--amber) 1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;
+}
+.page-hero-inner{position:relative;z-index:1;max-width:600px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(239,159,39,0.1);border:1px solid rgba(239,159,39,0.2);
+  color:var(--amber);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:6px 14px;border-radius:100px;margin-bottom:24px;
+}
+.eyebrow span{width:6px;height:6px;background:var(--amber);border-radius:50%;display:inline-block}
+.page-hero h1{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1.08;margin-bottom:16px}
+.page-hero h1 em{font-style:normal;color:var(--amber)}
+.page-hero p{font-size:18px;color:var(--text-muted);line-height:1.7}
+
+/* ── MAIN LAYOUT ── */
+.contact-layout{
+  display:grid;grid-template-columns:1fr 1.6fr;gap:0;
+  min-height:calc(100vh - 200px);
+}
+
+/* ── LEFT SIDEBAR ── */
+.contact-sidebar{
+  padding:60px 8% 60px 8%;
+  border-right:1px solid var(--border);
+  background:var(--surface);
+}
+.sidebar-section{margin-bottom:48px}
+.sidebar-label{
+  font-size:11px;font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;color:var(--amber);margin-bottom:20px;
+}
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:24px}
+.contact-icon{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  background:rgba(239,159,39,0.08);border:1px solid rgba(239,159,39,0.15);
+  display:flex;align-items:center;justify-content:center;
+}
+.contact-icon svg{width:18px;height:18px;stroke:var(--amber);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.contact-item-body{}
+.contact-item-body strong{display:block;font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.contact-item-body span{font-size:13px;color:var(--text-muted)}
+.contact-item-body a{font-size:13px;color:var(--amber);text-decoration:none}
+.contact-item-body a:hover{text-decoration:underline}
+
+.service-pills{display:flex;flex-direction:column;gap:8px}
+.service-pill{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:10px;
+  border:1px solid var(--border);background:var(--charcoal);
+  font-size:13px;color:var(--text-muted);cursor:pointer;transition:all .2s;
+  text-decoration:none;
+}
+.service-pill:hover{border-color:rgba(239,159,39,0.3);color:var(--text);background:rgba(239,159,39,0.04)}
+.service-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0}
+
+.response-note{
+  background:rgba(239,159,39,0.06);border:1px solid rgba(239,159,39,0.15);
+  border-radius:12px;padding:16px 18px;
+}
+.response-note p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.response-note strong{color:var(--amber)}
+
+/* ── FORM AREA ── */
+.contact-form-area{padding:60px 8%}
+.form-title{font-size:24px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px}
+.form-sub{font-size:14px;color:var(--text-muted);margin-bottom:36px}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-field{display:flex;flex-direction:column;gap:8px}
+.form-field.full{grid-column:1/-1}
+.form-field label{font-size:13px;font-weight:500;color:var(--text-muted);letter-spacing:0.3px}
+.form-field label span{color:var(--amber)}
+
+.form-field input,
+.form-field select,
+.form-field textarea{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:13px 16px;
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  color:var(--text);
+  outline:none;
+  transition:border-color .2s, background .2s;
+  -webkit-appearance:none;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder{color:var(--text-dim)}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus{
+  border-color:var(--amber);
+  background:rgba(239,159,39,0.03);
+}
+.form-field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A8A29C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.form-field select option{background:var(--charcoal2);color:var(--text)}
+.form-field textarea{resize:vertical;min-height:120px;line-height:1.6}
+
+.char-count{font-size:11px;color:var(--text-dim);text-align:right;margin-top:4px}
+
+/* submit */
+.form-submit{margin-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap}
+.btn-submit{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--amber);color:var(--charcoal);
+  font-family:'Inter',sans-serif;font-size:15px;font-weight:700;
+  padding:14px 32px;border-radius:12px;border:none;cursor:pointer;
+  transition:all .2s;letter-spacing:-0.2px;
+}
+.btn-submit:hover{background:var(--amber-light);transform:translateY(-2px)}
+.btn-submit:active{transform:translateY(0)}
+.btn-submit svg{width:18px;height:18px;stroke:var(--charcoal);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+.btn-submit:hover svg{transform:translateX(3px)}
+.submit-note{font-size:12px;color:var(--text-dim);margin-top:12px}
+
+/* success state */
+.success-banner{
+  display:none;align-items:center;gap:14px;
+  background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);
+  border-radius:12px;padding:16px 20px;margin-top:20px;
+}
+.success-banner.show{display:flex}
+.success-icon{width:36px;height:36px;border-radius:50%;background:rgba(52,211,153,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.success-icon svg{width:18px;height:18px;stroke:#34d399;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.success-text strong{display:block;font-size:14px;font-weight:600;color:#34d399;margin-bottom:2px}
+.success-text span{font-size:13px;color:var(--text-muted)}
+
+/* error state */
+.field-error{font-size:12px;color:#f87171;margin-top:4px;display:none}
+.form-field.has-error input,
+.form-field.has-error select,
+.form-field.has-error textarea{border-color:#f87171}
+.form-field.has-error .field-error{display:block}
+
+/* ── FAQ strip ── */
+.faq-strip{
+  border-top:1px solid var(--border);padding:64px 8%;
+  background:var(--surface);
+}
+.faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+.faq-item{}
+.faq-item h4{font-size:15px;font-weight:600;margin-bottom:8px;letter-spacing:-0.2px}
+.faq-item p{font-size:13px;color:var(--text-muted);line-height:1.65}
+
+/* ── FOOTER ── */
+footer{padding:40px 8% 28px;border-top:1px solid var(--border)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:13px;color:var(--text-dim)}
+.footer-bottom .made span{color:var(--amber)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .contact-layout{grid-template-columns:1fr}
+  .contact-sidebar{border-right:none;border-bottom:1px solid var(--border);padding:48px 8%}
+  .service-pills{flex-direction:row;flex-wrap:wrap}
+  .service-pill{flex:1;min-width:140px}
+}
+@media(max-width:768px){
+  nav{padding:16px 5%}
+  .nav-links a:not(.nav-cta){display:none}
+  .page-hero{padding:52px 5% 40px}
+  .page-hero h1{font-size:38px}
+  .contact-sidebar,.contact-form-area{padding:40px 5%}
+  .form-grid{grid-template-columns:1fr}
+  .faq-strip{padding:48px 5%}
+  .faq-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="36" height="48" viewBox="0 0 76 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M38 4C20 4 7 16 7 32C7 44 14 54 24 60L22 72H54L52 60C62 54 69 44 69 32C69 16 56 4 38 4Z" fill="#EF9F27"/>
+      <path d="M44 4.5C52 8 58 16 61 26C64 36 62 47 56 55L52 60H44L46 32C46 20 46 10 44 4.5Z" fill="#BA7517" opacity="0.35"/>
+      <path d="M30 4.8C24 8 18 16 15 26C13 34 14 43 18 51L22 60H30L28 32C27 20 28 10 30 4.8Z" fill="#FAC775" opacity="0.35"/>
+      <line x1="38" y1="4" x2="38" y2="-6" stroke="#EF9F27" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="24" y1="8" x2="17" y2="1" stroke="#EF9F27" stroke-width="2" stroke-linecap="round"/>
+      <line x1="52" y1="8" x2="59" y2="1" stroke="#EF9F27" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="38" cy="-6" r="3.5" fill="#EF9F27"/>
+      <circle cx="16" cy="0" r="3" fill="#EF9F27"/>
+      <circle cx="60" cy="0" r="3" fill="#EF9F27"/>
+      <rect x="22" y="72" width="32" height="8" rx="2" fill="#444441"/>
+      <rect x="22" y="80" width="32" height="7" rx="1" fill="#666462"/>
+      <rect x="22" y="87" width="32" height="4" fill="#FAC775"/>
+      <polygon points="22,91 54,91 45,106 31,106" fill="#EF9F27"/>
+      <polygon points="31,106 45,106 38,118" fill="#F5C4A0"/>
+      <polygon points="34,112 42,112 38,118" fill="#2C2A27"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="think">Think</span>
+      <span class="ds">Design School</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="/#services">Services</a>
+    <a href="/#workshops">Workshops</a>
+    <a href="/#blog">Blog</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="eyebrow"><span></span>Get in touch</div>
+    <h1>Let's talk <em>design</em></h1>
+    <p>Whether you want a portfolio review, mentoring session, UX audit, or just have a question — I'd love to hear from you.</p>
+  </div>
+</div>
+
+<!-- ── CONTACT LAYOUT ── -->
+<div class="contact-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <div class="contact-sidebar">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Direct contact</div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-item-body">
+          <strong>Email</strong>
+          <a href="mailto:abhilathi@gmail.com">abhilathi@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="contact-item-body">
+          <strong>Response time</strong>
+          <span>Usually within 24–48 hours</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-item-body">
+          <strong>Based in</strong>
+          <span>Kerala, India · Available globally</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">What can I help with?</div>
+      <div class="service-pills">
+        <a href="#form" class="service-pill"><span class="service-pill-dot"></span>Portfolio Review</a>
+        <a href="#form" class="service-pill"><span class="service-pill-dot"></span>UX Audit</a>
+        <a href="#form" class="service-pill"><span class="service-pill-dot"></span>1:1 Mentoring</a>
+        <a href="#form" class="service-pill"><span class="service-pill-dot"></span>Workshop Enquiry</a>
+        <a href="#form" class="service-pill"><span class="service-pill-dot"></span>General Question</a>
+        <a href="#form" class="service-pill"><span class="service-pill-dot"></span>Collaboration</a>
+      </div>
+    </div>
+
+    <div class="response-note">
+      <p><strong>All services are free.</strong> Think Design School is built on the belief that quality design education should be accessible to everyone. No hidden costs, ever.</p>
+    </div>
+
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="contact-form-area" id="form">
+    <h2 class="form-title">Send a message</h2>
+    <p class="form-sub">Fill in the form and I'll get back to you within 48 hours.</p>
+
+    <!--
+      FORMSPREE SETUP (free, no backend needed):
+      1. Go to https://formspree.io and sign up free
+      2. Create a new form → copy the form endpoint URL
+      3. Replace "YOUR_FORM_ID" below with your actual Formspree form ID
+      That's it — submissions go straight to abhilathi@gmail.com
+    -->
+    <form
+      id="contactForm"
+      action="https://formspree.io/f/YOUR_FORM_ID"
+      method="POST"
+      novalidate
+    >
+      <!-- Formspree config fields -->
+      <input type="hidden" name="_subject" value="New message from Think Design School website">
+      <input type="hidden" name="_replyto" id="replyToField">
+
+      <div class="form-grid">
+
+        <div class="form-field" id="field-name">
+          <label for="name">Your name <span>*</span></label>
+          <input type="text" id="name" name="name" placeholder="Rahul Sharma" autocomplete="name" required>
+          <span class="field-error">Please enter your name</span>
+        </div>
+
+        <div class="form-field" id="field-email">
+          <label for="email">Email address <span>*</span></label>
+          <input type="email" id="email" name="email" placeholder="rahul@example.com" autocomplete="email" required>
+          <span class="field-error">Please enter a valid email</span>
+        </div>
+
+        <div class="form-field full" id="field-service">
+          <label for="service">What do you need help with? <span>*</span></label>
+          <select id="service" name="service" required>
+            <option value="" disabled selected>Select a service…</option>
+            <option value="Portfolio Review">Portfolio Review</option>
+            <option value="UX Audit">UX Audit</option>
+            <option value="1:1 Mentoring">1:1 Mentoring</option>
+            <option value="Workshop Enquiry">Workshop Enquiry</option>
+            <option value="Collaboration">Collaboration</option>
+            <option value="General Question">General Question</option>
+          </select>
+          <span class="field-error">Please select a service</span>
+        </div>
+
+        <div class="form-field full" id="field-experience">
+          <label for="experience">Years of design experience</label>
+          <select id="experience" name="experience">
+            <option value="" disabled selected>Select your level…</option>
+            <option value="Student / Just starting">Student / Just starting</option>
+            <option value="0–2 years">0–2 years</option>
+            <option value="3–5 years">3–5 years</option>
+            <option value="6–10 years">6–10 years</option>
+            <option value="10+ years">10+ years</option>
+          </select>
+        </div>
+
+        <div class="form-field full" id="field-message">
+          <label for="message">Your message <span>*</span></label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Tell me a bit about yourself and what you're looking for…"
+            maxlength="1000"
+            required
+          ></textarea>
+          <div class="char-count"><span id="charCount">0</span> / 1000</div>
+          <span class="field-error">Please write a short message</span>
+        </div>
+
+        <!-- Honeypot anti-spam -->
+        <input type="text" name="_gotcha" style="display:none">
+
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn-submit" id="submitBtn">
+          Send message
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+      <p class="submit-note">Your message goes directly to abhilathi@gmail.com · No spam, ever.</p>
+
+      <div class="success-banner" id="successBanner">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="success-text">
+          <strong>Message sent!</strong>
+          <span>Thanks for reaching out. I'll reply within 24–48 hours.</span>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- ── FAQ STRIP ── -->
+<div class="faq-strip">
+  <div class="sidebar-label">Common questions</div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Is everything really free?</h4>
+      <p>Yes — portfolio reviews, mentoring, articles, and workshops are all free. Think Design School is built on the belief that good design education should be accessible to everyone.</p>
+    </div>
+    <div class="faq-item">
+      <h4>How long does a portfolio review take?</h4>
+      <p>Typically 3–5 working days depending on the depth of feedback needed. You'll get detailed written notes with specific, actionable suggestions.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I book a mentoring session if I'm a beginner?</h4>
+      <p>Absolutely. Mentoring is available for all levels — whether you're exploring design for the first time or navigating a career transition into leadership.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Think Design School · Shaping the Future of Design</p>
+    <p class="made">Made with <span>♥</span> for the design community</p>
+  </div>
+</footer>
+
+<script>
+// ── Character counter ──
+const msg = document.getElementById('message');
+const count = document.getElementById('charCount');
+msg.addEventListener('input', () => count.textContent = msg.value.length);
+
+// ── Sync replyto ──
+document.getElementById('email').addEventListener('input', function(){
+  document.getElementById('replyToField').value = this.value;
+});
+
+// ── Inline validation ──
+function validate(form){
+  let ok = true;
+  ['name','email','service','message'].forEach(id => {
+    const field = document.getElementById('field-' + id);
+    const input = document.getElementById(id);
+    if(!input) return;
+    const empty = !input.value.trim();
+    const badEmail = id === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+    if(empty || badEmail){
+      field.classList.add('has-error');
+      ok = false;
+    } else {
+      field.classList.remove('has-error');
+    }
+  });
+  return ok;
+}
+
+// ── Form submit ──
+const form = document.getElementById('contactForm');
+const btn  = document.getElementById('submitBtn');
+const success = document.getElementById('successBanner');
+
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  if(!validate(form)) return;
+
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+
+  // If Formspree ID is not set, fall back to mailto
+  const action = form.action;
+  if(action.includes('YOUR_FORM_ID')){
+    // Fallback: open mailto
+    const name    = document.getElementById('name').value;
+    const email   = document.getElementById('email').value;
+    const service = document.getElementById('service').value;
+    const exp     = document.getElementById('experience').value;
+    const message = document.getElementById('message').value;
+    const body    = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nService: ${service}\nExperience: ${exp}\n\nMessage:\n${message}`
+    );
+    window.location.href = `mailto:abhilathi@gmail.com?subject=New%20message%20from%20Think%20Design%20School&body=${body}`;
+    btn.textContent = 'Send message';
+    btn.disabled = false;
+    success.classList.add('show');
+    form.reset(); count.textContent = '0';
+    return;
+  }
+
+  try{
+    const data = new FormData(form);
+    const res  = await fetch(action, {method:'POST', body:data, headers:{'Accept':'application/json'}});
+    if(res.ok){
+      success.classList.add('show');
+      form.reset();
+      count.textContent = '0';
+      btn.innerHTML = 'Sent ✓';
+    } else {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  } catch(err){
+    btn.textContent = 'Try again';
+    btn.disabled = false;
+  }
+});
+
+// ── Clear error on input ──
+document.querySelectorAll('input,select,textarea').forEach(el => {
+  el.addEventListener('input', () => {
+    const field = el.closest('.form-field');
+    if(field) field.classList.remove('has-error');
+  });
+});
+
+// ── Service pill click pre-selects dropdown ──
+document.querySelectorAll('.service-pill').forEach(pill => {
+  pill.addEventListener('click', function(e){
+    const label = this.textContent.trim();
+    const select = document.getElementById('service');
+    [...select.options].forEach(opt => {
+      if(opt.value === label) opt.selected = true;
+    });
+  });
+});
+</script>
+
+</body>
+</html>

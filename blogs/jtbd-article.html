@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nobody Buys an Umbrella Because They Like Umbrellas — Think Design School</title>
+<meta name="description" content="A beginner's guide to Jobs To Be Done — told through everyday things you already know." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+<style>
+  /* ── Reset & base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink:       #1A1A1A;
+    --ink-soft:  #4A4A4A;
+    --ink-muted: #888;
+    --bg:        #FAFAF8;
+    --bg-card:   #FFFFFF;
+    --border:    #E5E3DC;
+    --amber:     #E8972A;
+    --amber-lt:  #FDF3E3;
+    --amber-dk:  #7A4E0A;
+    --teal:      #1A8C72;
+    --teal-lt:   #E6F5F1;
+    --coral:     #D95C38;
+    --coral-lt:  #FAECE7;
+    --purple:    #5B52CC;
+    --purple-lt: #EEEDFE;
+    --green-lt:  #EAF3DE;
+    --green-dk:  #2D5A0C;
+    --red-lt:    #FCEBEB;
+    --red-dk:    #6B1212;
+    --radius:    10px;
+    --radius-sm: 6px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Nav ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,250,248,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 58px;
+  }
+  .nav-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px; color: var(--ink); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-brand span { color: var(--amber); }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a { font-size: 13px; color: var(--ink-soft); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: var(--amber-dk); background: var(--amber-lt);
+    border-radius: 20px; padding: 3px 10px;
+    border: 1px solid #F0D5A0;
+  }
+
+  /* ── Layout ── */
+  .page { max-width: 720px; margin: 0 auto; padding: 0 1.5rem 5rem; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 3.5rem 0 2.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .hero-eyebrow {
+    display: flex; gap: 8px; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;
+  }
+  .pill {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    border-radius: 20px; padding: 3px 10px;
+  }
+  .pill-topic { background: var(--teal-lt); color: var(--teal); border: 1px solid #A0D9CC; }
+  .pill-level { background: var(--purple-lt); color: var(--purple); border: 1px solid #C4BFF4; }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .hero-title em { font-style: italic; color: var(--amber); }
+  .hero-sub {
+    font-size: 16px; color: var(--ink-soft);
+    line-height: 1.65; margin-bottom: 1.5rem; max-width: 580px;
+  }
+  .hero-meta { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+  .hero-meta span { font-size: 13px; color: var(--ink-muted); }
+  .hero-meta strong { color: var(--ink-soft); font-weight: 500; }
+  .hero-divider { width: 36px; height: 1px; background: var(--border); }
+
+  /* ── Prose ── */
+  .prose { font-size: 15px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 1rem; }
+  .prose strong { color: var(--ink); font-weight: 600; }
+  .prose em { color: var(--amber-dk); font-style: italic; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 3.5rem; }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    color: var(--ink-muted); margin-bottom: 6px; text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(20px, 3.5vw, 26px);
+    line-height: 1.3; color: var(--ink); margin-bottom: 1rem;
+  }
+
+  /* ── Pull quote ── */
+  .pull-quote {
+    border-left: 3px solid var(--amber);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--amber-lt);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+  .pull-quote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px; color: var(--amber-dk); font-style: italic; line-height: 1.5;
+  }
+
+  /* ── Illustration ── */
+  .illus {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+  .illus svg { width: 100%; display: block; }
+  .illus-cap {
+    font-size: 12px; color: var(--ink-muted); text-align: center;
+    padding: 8px 12px; border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* ── Flip cards ── */
+  .flip-instruction {
+    font-size: 13px; color: var(--ink-muted); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 12px; margin: 1rem 0 0.5rem;
+  }
+  .flip-card { perspective: 700px; height: 140px; cursor: pointer; }
+  .flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 14px 10px; text-align: center;
+    background: var(--bg-card);
+  }
+  .flip-back { transform: rotateY(180deg); }
+  .flip-icon { font-size: 28px; margin-bottom: 8px; }
+  .flip-label { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+  .flip-hint { font-size: 11px; color: var(--ink-muted); }
+  .flip-answer { font-size: 12px; line-height: 1.5; color: var(--ink-soft); }
+  .flip-answer strong { display: block; margin-bottom: 4px; font-size: 12px; }
+
+  /* ── Samosa layers ── */
+  .samosa-wrap {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; margin: 1.25rem 0; align-items: start;
+  }
+  @media (max-width: 520px) { .samosa-wrap { grid-template-columns: 1fr; } }
+  .layer-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .layer-btn {
+    width: 100%; text-align: left;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    font-family: inherit;
+  }
+  .layer-btn.active { border-color: var(--amber); background: var(--amber-lt); }
+  .layer-num { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 2px; }
+  .layer-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .layer-sub  { font-size: 12px; color: var(--ink-muted); margin-top: 1px; }
+  .layer-panel {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px;
+    min-height: 100px;
+    transition: opacity .25s;
+  }
+  .layer-panel p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; font-style: italic; }
+
+  /* ── VS grid ── */
+  .vs-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin: 1.25rem 0;
+  }
+  @media (max-width: 460px) { .vs-grid { grid-template-columns: 1fr; } }
+  .vs-card { border-radius: var(--radius-sm); padding: 14px; border: 1px solid transparent; }
+  .vs-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .vs-text { font-size: 13px; line-height: 1.6; }
+  .vs-old  { background: var(--red-lt);   border-color: #F09595; color: var(--red-dk); }
+  .vs-old .vs-lbl  { color: #A33; }
+  .vs-new  { background: var(--green-lt); border-color: #97C459; color: var(--green-dk); }
+  .vs-new .vs-lbl  { color: #3B6D11; }
+
+  /* ── Formula builder ── */
+  .formula-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem; margin: 1.25rem 0;
+  }
+  .formula-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .formula-kw {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    background: #1A1A1A; color: #fff;
+    border-radius: var(--radius-sm); padding: 4px 10px;
+    min-width: 70px; text-align: center; flex-shrink: 0;
+  }
+  .formula-input {
+    flex: 1; font-family: inherit; font-size: 13px;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 8px 12px; background: var(--bg);
+    color: var(--ink); outline: none;
+    transition: border-color .2s;
+  }
+  .formula-input:focus { border-color: var(--amber); }
+  .formula-input::placeholder { color: var(--ink-muted); }
+  .formula-btn {
+    width: 100%; margin-top: 6px;
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    padding: 11px; border-radius: var(--radius-sm);
+    background: var(--ink); color: #fff; border: none;
+    cursor: pointer; transition: background .2s;
+    letter-spacing: 0.3px;
+  }
+  .formula-btn:hover { background: #333; }
+  .formula-result {
+    margin-top: 12px; padding: 14px;
+    background: var(--teal-lt); border-radius: var(--radius-sm);
+    border: 1px solid #A0D9CC;
+    font-size: 13px; color: #0B4E3E; line-height: 1.7;
+    display: none;
+  }
+  .formula-result strong { color: var(--teal); }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px; background: var(--border);
+    margin: 3rem 0; position: relative;
+  }
+  .divider::after {
+    content: '✦';
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg); padding: 0 10px;
+    font-size: 12px; color: var(--border);
+  }
+
+  /* ── CTA box ── */
+  .cta-box {
+    background: var(--ink); color: #fff;
+    border-radius: var(--radius); padding: 2rem;
+    margin: 2rem 0; text-align: center;
+  }
+  .cta-box h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; margin-bottom: 10px; font-weight: 400;
+  }
+  .cta-box p { font-size: 14px; color: #B0B0A8; line-height: 1.7; margin-bottom: 1.25rem; }
+  .cta-btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .cta-btn {
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    padding: 10px 20px; border-radius: var(--radius-sm);
+    cursor: pointer; transition: opacity .2s; border: none;
+    letter-spacing: 0.3px;
+  }
+  .cta-btn-primary { background: var(--amber); color: #fff; }
+  .cta-btn-secondary { background: transparent; color: #fff; border: 1px solid #444; }
+  .cta-btn:hover { opacity: 0.85; }
+
+  /* ── Tags ── */
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2rem; }
+  .tag {
+    font-size: 12px; padding: 4px 12px;
+    border-radius: 20px; background: var(--bg-card);
+    color: var(--ink-muted); border: 1px solid var(--border);
+    text-decoration: none; transition: border-color .2s, color .2s;
+  }
+  .tag:hover { border-color: var(--amber); color: var(--amber-dk); }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem; text-align: center;
+  }
+  footer p { font-size: 13px; color: var(--ink-muted); }
+  footer a { color: var(--amber-dk); text-decoration: none; }
+
+  /* ── Scroll reveal ── */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+    .flip-inner { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="/">Think <span>Design</span> School</a>
+  <div class="nav-links">
+    <a href="/#services">Services</a>
+    <a href="/#blog">Blog</a>
+    <a href="/#contact">Book a Session</a>
+  </div>
+  <span class="nav-tag">FREE</span>
+</nav>
+
+<!-- PAGE -->
+<main class="page">
+
+  <!-- HERO -->
+  <header class="hero reveal">
+    <div class="hero-eyebrow">
+      <span class="pill pill-topic">DESIGN THINKING</span>
+      <span class="pill pill-level">BEGINNER</span>
+    </div>
+    <h1 class="hero-title">Nobody Buys an Umbrella<br>Because They <em>Like</em> Umbrellas</h1>
+    <p class="hero-sub">A beginner's guide to Jobs To Be Done — the idea that changed how the world's best companies understand people. Told through everyday things you already know.</p>
+    <div class="hero-meta">
+      <span>By <strong>Abhilash S</strong></span>
+      <div class="hero-divider"></div>
+      <span>5 min read</span>
+      <div class="hero-divider"></div>
+      <span>Jobs To Be Done · Product Thinking</span>
+    </div>
+  </header>
+
+  <!-- OPENING -->
+  <section class="section reveal">
+    <div class="section-eyebrow">The Opening Thought</div>
+    <h2 class="section-title">My nephew taught me this without knowing it</h2>
+    <p class="prose">Last monsoon, my 8-year-old nephew was excited when we bought him a new school bag. Not because of the bag. Because it had a <strong>Doraemon print</strong> on it.</p>
+    <p class="prose">He didn't care about the zips, the compartments, or the padding. He cared about what his classmates would say when he walked in on Monday morning with Doraemon on his back.</p>
+    <p class="prose">We thought we were buying a school bag. He was buying <strong>a cool moment in front of his friends.</strong></p>
+
+    <div class="pull-quote">
+      <p>"That tiny difference — between what we think people buy and what they actually buy — is the entire idea of Jobs To Be Done."</p>
+    </div>
+
+    <!-- Illustration 1 -->
+    <div class="illus">
+      <svg viewBox="0 0 680 190" xmlns="http://www.w3.org/2000/svg" aria-label="Two ways of seeing a purchase: product view vs JTBD view">
+        <rect width="680" height="190" fill="#FAFAF8"/>
+        <!-- left panel -->
+        <rect x="30" y="25" width="285" height="140" rx="10" fill="#F0EEE7" stroke="#CCCAC1" stroke-width="1"/>
+        <text x="172" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#888" letter-spacing="2">WHAT WE THINK</text>
+        <text x="172" y="105" text-anchor="middle" font-family="DM Serif Display,serif" font-size="22" fill="#1A1A1A">A school bag</text>
+        <text x="172" y="127" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#888">with zips and compartments</text>
+        <!-- arrow -->
+        <line x1="325" y1="95" x2="355" y2="95" stroke="#CCC" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <polygon points="352,91 361,95 352,99" fill="#CCC"/>
+        <!-- right panel -->
+        <rect x="365" y="25" width="285" height="140" rx="10" fill="#E6F5F1" stroke="#8DCFC3" stroke-width="1"/>
+        <text x="507" y="52" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1A8C72" letter-spacing="2">WHAT THEY'RE REALLY BUYING</text>
+        <text x="507" y="96" text-anchor="middle" font-family="DM Serif Display,serif" font-size="20" fill="#0B4E3E">"Look how cool I am"</text>
+        <text x="507" y="118" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#1A8C72">in front of every classmate</text>
+        <text x="507" y="147" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#36A88E">that walk-in on Monday morning</text>
+      </svg>
+      <p class="illus-cap">The product is just the vehicle. The destination is always a feeling.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FLIP CARDS -->
+  <section class="section reveal">
+    <div class="section-eyebrow">Discover the Real Job</div>
+    <h2 class="section-title">What are people really buying?</h2>
+    <p class="prose">You see a product on the surface. But there is always a deeper job happening underneath. Tap each card to discover what people are truly hiring it for.</p>
+
+    <p class="flip-instruction">👆 Tap any card to flip it</p>
+    <div class="flip-grid">
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" tabindex="0" role="button" aria-label="Flip card: umbrella" onkeydown="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-face">
+            <div class="flip-icon">☂️</div>
+            <div class="flip-label">Umbrella</div>
+            <div class="flip-hint">tap to reveal</div>
+          </div>
+          <div class="flip-face flip-back" style="background:#FDF3E3; border-color:#EF9F27;">
+            <div class="flip-icon">💪</div>
+            <div class="flip-answer"><strong style="color:#7A4E0A">Not rain protection.</strong>The confidence to go anywhere without weather making decisions for you.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" tabindex="0" role="button" aria-label="Flip card: diary" onkeydown="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-face">
+            <div class="flip-icon">📓</div>
+            <div class="flip-label">Diary</div>
+            <div class="flip-hint">tap to reveal</div>
+          </div>
+          <div class="flip-face flip-back" style="background:#EEEDFE; border-color:#AFA9EC;">
+            <div class="flip-icon">🤫</div>
+            <div class="flip-answer"><strong style="color:#3A339A">Not paper and ink.</strong>A private place where thoughts feel safe and finally heard — even if only by yourself.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" tabindex="0" role="button" aria-label="Flip card: birthday cake" onkeydown="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-face">
+            <div class="flip-icon">🎂</div>
+            <div class="flip-label">Birthday Cake</div>
+            <div class="flip-hint">tap to reveal</div>
+          </div>
+          <div class="flip-face flip-back" style="background:#E6F5F1; border-color:#8DCFC3;">
+            <div class="flip-icon">😍</div>
+            <div class="flip-answer"><strong style="color:#0B4E3E">Not dessert.</strong>The look on someone's face when they feel truly special — a memory kept for years.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" onclick="this.classList.toggle('flipped')" tabindex="0" role="button" aria-label="Flip card: steel water bottle" onkeydown="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-face">
+            <div class="flip-icon">🫙</div>
+            <div class="flip-label">Steel Bottle</div>
+            <div class="flip-hint">tap to reveal</div>
+          </div>
+          <div class="flip-face flip-back" style="background:#FAECE7; border-color:#E09070;">
+            <div class="flip-icon">🌱</div>
+            <div class="flip-answer"><strong style="color:#6B2C12">Not hydration.</strong>The pride of never buying plastic again — and being seen as someone who cares.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SAMOSA LAYERS -->
+  <section class="section reveal">
+    <div class="section-eyebrow">The Samosa Theory</div>
+    <h2 class="section-title">Every job has 3 layers</h2>
+    <p class="prose">A samosa has an outer shell, a spiced filling, and a core. Every job people want done has the exact same structure. Tap each layer to see what's really inside.</p>
+
+    <div class="samosa-wrap">
+      <ul class="layer-list" role="tablist">
+        <li>
+          <button class="layer-btn active" onclick="setLayer(0)" role="tab" aria-selected="true">
+            <div class="layer-num" style="color:#888">OUTER LAYER</div>
+            <div class="layer-name">Functional job</div>
+            <div class="layer-sub">The practical thing they need done</div>
+          </button>
+        </li>
+        <li>
+          <button class="layer-btn" onclick="setLayer(1)" role="tab" aria-selected="false">
+            <div class="layer-num" style="color:#854F0B">THE FILLING</div>
+            <div class="layer-name">Emotional job</div>
+            <div class="layer-sub">How they want to feel</div>
+          </button>
+        </li>
+        <li>
+          <button class="layer-btn" onclick="setLayer(2)" role="tab" aria-selected="false">
+            <div class="layer-num" style="color:#5B52CC">THE CORE</div>
+            <div class="layer-name">Social job</div>
+            <div class="layer-sub">How they want to be seen</div>
+          </button>
+        </li>
+      </ul>
+      <div class="layer-panel" id="layerPanel" role="tabpanel">
+        <p id="layerText">"I need to buy a new phone. My old one is slow and keeps crashing."<br><br>Practical. Obvious. This is what most businesses build for — and stop at.</p>
+      </div>
+    </div>
+
+    <!-- Samosa SVG -->
+    <div class="illus">
+      <svg viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg" aria-label="Nested layers diagram: social outside, emotional middle, functional core">
+        <rect width="680" height="170" fill="#FAFAF8"/>
+        <ellipse cx="340" cy="88" rx="295" ry="65" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/>
+        <text x="598" y="62" font-family="DM Sans,sans-serif" font-size="11" fill="#5B52CC">Social</text>
+        <ellipse cx="340" cy="88" rx="215" ry="47" fill="#FDF3E3" stroke="#EF9F27" stroke-width="1"/>
+        <text x="524" y="78" font-family="DM Sans,sans-serif" font-size="11" fill="#854F0B">Emotional</text>
+        <ellipse cx="340" cy="88" rx="128" ry="30" fill="#F0EEE7" stroke="#CCCAC1" stroke-width="1"/>
+        <text x="340" y="93" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" font-weight="600" fill="#1A1A1A">Functional</text>
+      </svg>
+      <p class="illus-cap">Most businesses only see the outer layer. The best ones go all the way to the core.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- VS -->
+  <section class="section reveal">
+    <div class="section-eyebrow">Old vs New Thinking</div>
+    <h2 class="section-title">The question that changes everything</h2>
+    <p class="prose">The same product. Two completely different ways of understanding the person holding it.</p>
+
+    <div class="vs-grid">
+      <div class="vs-card vs-old">
+        <div class="vs-lbl">❌ OLD THINKING</div>
+        <div class="vs-text">"We sell a ceiling fan. 5 blades. 3 speeds. White and brown."</div>
+      </div>
+      <div class="vs-card vs-new">
+        <div class="vs-lbl">✅ JTBD THINKING</div>
+        <div class="vs-text">"People hire us so their family can sleep peacefully on a hot night — and not wake up irritable."</div>
+      </div>
+      <div class="vs-card vs-old">
+        <div class="vs-lbl">❌ OLD THINKING</div>
+        <div class="vs-text">"We sell tiffin delivery. Home-cooked meals. On-time. Affordable."</div>
+      </div>
+      <div class="vs-card vs-new">
+        <div class="vs-lbl">✅ JTBD THINKING</div>
+        <div class="vs-text">"People hire us to feel cared for — 500 kilometres away from the people who love them."</div>
+      </div>
+    </div>
+
+    <p class="prose" style="margin-top:1rem;">One is about the object. The other is about the <strong>life of the human being holding it</strong>. That is the only difference — and it changes everything about how you build, sell, and market.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FORMULA BUILDER -->
+  <section class="section reveal">
+    <div class="section-eyebrow">Try It Yourself</div>
+    <h2 class="section-title">Write your own Job Statement</h2>
+    <p class="prose">Think of something you use every day — or something you sell or offer. Fill in the blanks below and discover the real job hiding underneath it.</p>
+
+    <div class="formula-box">
+      <div class="formula-row">
+        <span class="formula-kw">WHEN</span>
+        <input class="formula-input" id="f1" type="text" placeholder="this is happening in my customer's life…" />
+      </div>
+      <div class="formula-row">
+        <span class="formula-kw">I WANT TO</span>
+        <input class="formula-input" id="f2" type="text" placeholder="help them do this / feel this…" />
+      </div>
+      <div class="formula-row">
+        <span class="formula-kw">SO THEY CAN</span>
+        <input class="formula-input" id="f3" type="text" placeholder="their life looks like this after…" />
+      </div>
+      <button class="formula-btn" onclick="buildStatement()">Reveal my job statement →</button>
+      <div class="formula-result" id="fResult"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CLOSING -->
+  <section class="section reveal">
+    <div class="section-eyebrow">The Big Idea</div>
+    <h2 class="section-title">The product is always just the vehicle</h2>
+    <p class="prose">The umbrella buyer wants to move freely without weather making decisions for them. The diary buyer wants to feel less alone with their thoughts. The birthday cake buyer wants to create a memory someone keeps for years.</p>
+    <p class="prose">When you build, sell, or market something — start with the life your customer is actually living. Not the product you're selling.</p>
+
+    <div class="pull-quote">
+      <p>"That gap between your customer's life now and their life after — that is the job. Fill that gap, and everything else follows."</p>
+    </div>
+
+    <p class="prose">This is what the world's best companies do. They're not smarter. They just ask a different question.</p>
+    <p class="prose">Not: <em>"How do I make my product better?"</em><br>But: <em>"What is the life my customer is trying to live?"</em></p>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-box reveal">
+    <h3>Ready to think like a designer?</h3>
+    <p>Think Design School is completely free. Get portfolio reviews, UX audits, 1:1 mentoring, and articles like this one — all built for designers who want to grow.</p>
+    <div class="cta-btn-row">
+      <button class="cta-btn cta-btn-primary" onclick="window.location.href='/#contact'">Book a Free Session</button>
+      <button class="cta-btn cta-btn-secondary" onclick="window.location.href='/#blog'">Read More Articles</button>
+    </div>
+  </div>
+
+  <!-- TAGS -->
+  <div class="tags">
+    <a class="tag" href="#">Jobs To Be Done</a>
+    <a class="tag" href="#">Product Thinking</a>
+    <a class="tag" href="#">Design Thinking</a>
+    <a class="tag" href="#">Beginner</a>
+    <a class="tag" href="#">UX</a>
+    <a class="tag" href="#">Marketing</a>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <a href="/">Think Design School</a> · Free for everyone · Made with ♥ for the design community</p>
+</footer>
+
+<script>
+/* ── Layer switcher ── */
+const layers = [
+  `"I need to buy a new phone. My old one is slow and keeps crashing."<br><br>Practical. Obvious. This is what most businesses build for — and stop at.`,
+  `"I don't want to feel like I've fallen behind. Everyone around me has upgraded. I don't want to look like I can't keep up."<br><br>This is the anxiety sitting underneath the purchase. Most businesses completely ignore this layer.`,
+  `"I want my relatives at the wedding next month to see that I'm doing well in life. This phone will say it for me before I even open my mouth."<br><br>The quiet voice nobody admits is there — but which often makes the final decision.`
+];
+
+function setLayer(i) {
+  document.querySelectorAll('.layer-btn').forEach((b, j) => {
+    b.classList.toggle('active', j === i);
+    b.setAttribute('aria-selected', j === i);
+  });
+  const panel = document.getElementById('layerPanel');
+  panel.style.opacity = '0';
+  setTimeout(() => {
+    document.getElementById('layerText').innerHTML = layers[i];
+    panel.style.opacity = '1';
+  }, 180);
+}
+
+/* ── Formula builder ── */
+function buildStatement() {
+  const w  = document.getElementById('f1').value.trim();
+  const iw = document.getElementById('f2').value.trim();
+  const so = document.getElementById('f3').value.trim();
+  const el = document.getElementById('fResult');
+  if (!w && !iw && !so) {
+    el.style.display = 'block';
+    el.style.background = '#FCEBEB';
+    el.style.borderColor = '#F09595';
+    el.style.color = '#6B1212';
+    el.innerHTML = 'Fill in at least one field to see your job statement.';
+    return;
+  }
+  el.style.display = 'block';
+  el.style.background = '#E6F5F1';
+  el.style.borderColor = '#8DCFC3';
+  el.style.color = '#0B4E3E';
+  let stmt = '<strong>Your job statement:</strong><br><br><em>';
+  if (w)  stmt += `When ${w}, `;
+  if (iw) stmt += `I want to ${iw}, `;
+  if (so) stmt += `so they can ${so}.`;
+  stmt += '</em><br><br>Notice — no product is mentioned anywhere. Just a human being and what they need. <strong>That is the job.</strong>';
+  el.innerHTML = stmt;
+}
+
+/* ── Scroll reveal ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

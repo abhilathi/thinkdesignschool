@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Structure a UX Case Study That Actually Gets You Hired — Think Design School</title>
+<meta name="description" content="Most portfolios look the same. Here's the structure that makes yours the one they remember."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1A1A1A;--ink-soft:#4A4A4A;--ink-muted:#888;
+  --bg:#FAFAF8;--bg-card:#FFFFFF;--border:#E5E3DC;
+  --amber:#E8972A;--amber-lt:#FDF3E3;--amber-dk:#7A4E0A;
+  --teal:#1A8C72;--teal-lt:#E6F5F1;
+  --purple:#5B52CC;--purple-lt:#EEEDFE;
+  --coral:#D95C38;--coral-lt:#FAECE7;
+  --green-lt:#EAF3DE;--green-dk:#2D5A0C;
+  --red-lt:#FCEBEB;--red-dk:#6B1212;
+  --radius:10px;--radius-sm:6px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,250,248,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px}
+.nav-brand{font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);text-decoration:none}
+.nav-brand span{color:var(--amber)}
+.nav-links{display:flex;gap:1.5rem}
+.nav-links a{font-size:13px;color:var(--ink-soft);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-tag{font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--amber-dk);background:var(--amber-lt);border-radius:20px;padding:3px 10px;border:1px solid #F0D5A0}
+.page{max-width:720px;margin:0 auto;padding:0 1.5rem 5rem}
+.hero{padding:3.5rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:3rem}
+.hero-eyebrow{display:flex;gap:8px;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+.pill{font-size:11px;font-weight:600;letter-spacing:1.5px;border-radius:20px;padding:3px 10px}
+.pill-ux{background:#E6F1FB;color:#185FA5;border:1px solid #85B7EB}
+.pill-level{background:var(--purple-lt);color:var(--purple);border:1px solid #C4BFF4}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(26px,5vw,40px);line-height:1.25;color:var(--ink);margin-bottom:1rem}
+.hero-title em{font-style:italic;color:var(--amber)}
+.hero-sub{font-size:16px;color:var(--ink-soft);line-height:1.65;margin-bottom:1.5rem}
+.hero-meta{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap}
+.hero-meta span{font-size:13px;color:var(--ink-muted)}
+.hero-meta strong{color:var(--ink-soft);font-weight:500}
+.hero-div{width:36px;height:1px;background:var(--border)}
+.section{margin-bottom:3.5rem}
+.sec-eye{font-size:11px;font-weight:600;letter-spacing:2px;color:var(--ink-muted);margin-bottom:6px;text-transform:uppercase}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(19px,3.5vw,25px);line-height:1.3;color:var(--ink);margin-bottom:1rem}
+.prose{font-size:15px;color:var(--ink-soft);line-height:1.8;margin-bottom:1rem}
+.prose strong{color:var(--ink);font-weight:600}
+.prose em{color:var(--amber-dk);font-style:italic}
+.pull{border-left:3px solid var(--amber);padding:.75rem 1.25rem;margin:1.5rem 0;background:var(--amber-lt);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.pull p{font-family:'DM Serif Display',serif;font-size:17px;color:var(--amber-dk);font-style:italic;line-height:1.5}
+.illus{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:1.5rem 0}
+.illus svg{width:100%;display:block}
+.illus-cap{font-size:12px;color:var(--ink-muted);text-align:center;padding:8px 12px;border-top:1px solid var(--border);font-style:italic}
+/* Steps interactive */
+.steps-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.step-btn{font-family:inherit;font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg-card);color:var(--ink-soft);cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.step-btn.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.step-panel{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:opacity .25s}
+.step-panel h4{font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);margin-bottom:6px}
+.step-panel p{font-size:14px;color:var(--ink-soft);line-height:1.7;margin-bottom:8px}
+.step-panel .tag{font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;display:inline-block;margin-top:4px}
+/* Checklist */
+.checklist{list-style:none;margin:1.25rem 0}
+.checklist li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:.5px solid var(--border);font-size:14px;color:var(--ink-soft);line-height:1.6;cursor:pointer}
+.checklist li:last-child{border-bottom:none}
+.check-box{width:20px;height:20px;border-radius:4px;border:1.5px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s;background:var(--bg-card)}
+.check-box.done{background:var(--teal);border-color:var(--teal);color:#fff;font-size:12px}
+/* VS */
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1.25rem 0}
+@media(max-width:480px){.vs-grid{grid-template-columns:1fr}}
+.vs-card{border-radius:var(--radius-sm);padding:14px;border:1px solid transparent}
+.vs-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;margin-bottom:6px}
+.vs-text{font-size:13px;line-height:1.6}
+.vs-bad{background:var(--red-lt);border-color:#F09595;color:var(--red-dk)}
+.vs-bad .vs-lbl{color:#A33}
+.vs-good{background:var(--green-lt);border-color:#97C459;color:var(--green-dk)}
+.vs-good .vs-lbl{color:#3B6D11}
+/* CTA */
+.cta-box{background:var(--ink);color:#fff;border-radius:var(--radius);padding:2rem;margin:2rem 0;text-align:center}
+.cta-box h3{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:10px;font-weight:400}
+.cta-box p{font-size:14px;color:#B0B0A8;line-height:1.7;margin-bottom:1.25rem}
+.cta-btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cta-btn{font-family:inherit;font-size:13px;font-weight:600;padding:10px 20px;border-radius:var(--radius-sm);cursor:pointer;transition:opacity .2s;border:none}
+.cta-btn:hover{opacity:.85}
+.cta-primary{background:var(--amber);color:#fff}
+.cta-secondary{background:transparent;color:#fff;border:1px solid #444 !important}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:2rem}
+.tag-link{font-size:12px;padding:4px 12px;border-radius:20px;background:var(--bg-card);color:var(--ink-muted);border:1px solid var(--border);text-decoration:none;transition:border-color .2s,color .2s}
+.tag-link:hover{border-color:var(--amber);color:var(--amber-dk)}
+.divider{height:1px;background:var(--border);margin:3rem 0;position:relative}
+.divider::after{content:'✦';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--bg);padding:0 10px;font-size:12px;color:var(--border)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:none}
+footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center}
+footer p{font-size:13px;color:var(--ink-muted)}
+footer a{color:var(--amber-dk);text-decoration:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="/">Think <span>Design</span> School</a>
+  <div class="nav-links">
+    <a href="/#services">Services</a>
+    <a href="/#blog">Blog</a>
+    <a href="/#contact">Book a Session</a>
+  </div>
+  <span class="nav-tag">FREE</span>
+</nav>
+<main class="page">
+
+  <header class="hero reveal">
+    <div class="hero-eyebrow">
+      <span class="pill pill-ux">UX DESIGN</span>
+      <span class="pill pill-level">BEGINNER</span>
+    </div>
+    <h1 class="hero-title">How to Structure a UX Case Study<br>That <em>Actually</em> Gets You Hired</h1>
+    <p class="hero-sub">Most portfolios look exactly the same. The problem isn't talent — it's structure. Here's the framework that makes hiring managers stop scrolling.</p>
+    <div class="hero-meta">
+      <span>By <strong>Abhilash S</strong></span>
+      <div class="hero-div"></div>
+      <span>6 min read</span>
+      <div class="hero-div"></div>
+      <span>UX Portfolio · Career</span>
+    </div>
+  </header>
+
+  <section class="section reveal">
+    <div class="sec-eye">The Real Problem</div>
+    <h2 class="sec-title">The portfolio that got ignored — and why</h2>
+    <p class="prose">A junior designer once shared their portfolio with me. The work was genuinely good. Clean interfaces. Thoughtful layouts. Three case studies, each with 30 screens of Figma mockups.</p>
+    <p class="prose">They hadn't heard back from a single company in two months.</p>
+    <p class="prose">I spent five minutes reading and found the problem immediately. Every case study started with: <em>"I was tasked with redesigning the onboarding flow."</em> Then it went straight into the screens.</p>
+    <p class="prose">There was no problem. No person. No tension. Just screens.</p>
+    <div class="pull"><p>"A hiring manager doesn't want to see what you made. They want to see how you think. The screens are the last 10% of the story."</p></div>
+    <p class="prose">This article is about the other 90%.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section reveal">
+    <div class="sec-eye">The Structure</div>
+    <h2 class="sec-title">The 4-part structure — tap each part to explore</h2>
+    <p class="prose">Every strong case study follows this shape. Not because it's a template — but because it mirrors how a designer actually thinks. Tap each part below.</p>
+    <div class="steps-nav" id="stepsNav">
+      <button class="step-btn active" onclick="setStep(0)">1 · The Problem</button>
+      <button class="step-btn" onclick="setStep(1)">2 · Your Process</button>
+      <button class="step-btn" onclick="setStep(2)">3 · The Solution</button>
+      <button class="step-btn" onclick="setStep(3)">4 · The Outcome</button>
+    </div>
+    <div class="step-panel" id="stepPanel"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section reveal">
+    <div class="sec-eye">The Most Common Mistake</div>
+    <h2 class="sec-title">Starting with "I was tasked with..."</h2>
+    <p class="prose">This is the single most common opening line in UX portfolios. And it kills the case study before it starts. Why? Because it makes you sound like an executor, not a thinker.</p>
+    <p class="prose">Hiring managers aren't looking for someone who can follow instructions. They're looking for someone who understands problems deeply enough to know which problem to solve.</p>
+    <div class="vs-grid">
+      <div class="vs-card vs-bad">
+        <div class="vs-lbl">❌ WEAK OPENING</div>
+        <div class="vs-text">"I was tasked with redesigning the checkout flow for a retail app."</div>
+      </div>
+      <div class="vs-card vs-good">
+        <div class="vs-lbl">✅ STRONG OPENING</div>
+        <div class="vs-text">"68% of users were abandoning checkout at the payment screen. Nobody knew why. I went to find out."</div>
+      </div>
+      <div class="vs-card vs-bad">
+        <div class="vs-lbl">❌ WEAK PROCESS</div>
+        <div class="vs-text">"I conducted user interviews and created wireframes based on the findings."</div>
+      </div>
+      <div class="vs-card vs-good">
+        <div class="vs-lbl">✅ STRONG PROCESS</div>
+        <div class="vs-text">"Five interviews revealed the same thing: users didn't trust the page. The solution wasn't a new layout — it was a trust signal they could actually read."</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section reveal">
+    <div class="sec-eye">Before You Publish</div>
+    <h2 class="sec-title">Your case study checklist</h2>
+    <p class="prose">Go through your existing case studies with this checklist. Tick each one you can honestly say yes to.</p>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>My opening line describes a human problem — not a project brief</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>I explain why this problem mattered — to the user and the business</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>I show my thinking, not just my output — including dead ends</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>My process section shows at least one thing I changed based on feedback</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>I have at least one real number in the outcome (not "improved significantly")</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>I can read the whole case study in under 5 minutes</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span>I mention what I would do differently — this shows maturity</span></li>
+    </ul>
+    <p id="checkScore" style="font-size:13px;color:var(--ink-muted);margin-top:8px"></p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section reveal">
+    <div class="sec-eye">The Big Idea</div>
+    <h2 class="sec-title">Your portfolio is not a gallery. It's a conversation.</h2>
+    <p class="prose">A gallery shows finished things. A conversation shows how a mind works.</p>
+    <p class="prose">The best case studies I've ever read had imperfect designs — and honest process. They showed what went wrong in round one, why the team made the call they did in round two, and what they'd revisit if they had more time.</p>
+    <p class="prose">That honesty is not a weakness. It's the thing that makes a hiring manager think: <strong>this person would be safe to work with.</strong></p>
+    <div class="pull"><p>"Screens don't get you hired. Thinking does. Structure your case study around the thinking — and let the screens be the proof."</p></div>
+  </section>
+
+  <div class="cta-box reveal">
+    <h3>Want a review of your case study?</h3>
+    <p>Think Design School offers free 1:1 portfolio reviews. Share your work and get honest, structured feedback — the same way a senior designer would give it.</p>
+    <div class="cta-btn-row">
+      <button class="cta-btn cta-primary" onclick="window.location.href='/#contact'">Book a Free Review</button>
+      <button class="cta-btn cta-secondary" onclick="window.location.href='/#blog'">Read More Articles</button>
+    </div>
+  </div>
+
+  <div class="tags">
+    <a class="tag-link" href="#">UX Portfolio</a>
+    <a class="tag-link" href="#">Case Study</a>
+    <a class="tag-link" href="#">Career</a>
+    <a class="tag-link" href="#">Beginner</a>
+    <a class="tag-link" href="#">Design Thinking</a>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 <a href="/">Think Design School</a> · Free for everyone · Made with ♥ for the design community</p>
+</footer>
+
+<script>
+const steps = [
+  {
+    title:"1 · Start with the problem, not the project",
+    color:"#E6F1FB",border:"#85B7EB",text:"#042C53",tag:"#185FA5",tagbg:"#E6F1FB",tagtext:"The Hook",
+    body:`Open with a human problem or a business consequence — not a project description. Give the reader a reason to care before you show them anything. Name the user. Name the pain. Name what was at stake if nobody solved it.<br><br><em>Example: "Fraud investigators were spending 40% of their time manually cross-referencing data across 6 different tools. Every hour spent doing that was an hour not spent catching actual fraud."</em>`
+  },
+  {
+    title:"2 · Show your process — including the messy parts",
+    color:"#FDF3E3",border:"#EF9F27",text:"#412402",tag:"#854F0B",tagbg:"#FDF3E3",tagtext:"The Thinking",
+    body:`This is the section most designers rush. Don't. Show what you researched and what surprised you. Show the idea that didn't work and why. Show the feedback that changed your direction.<br><br>Hiring managers have seen thousands of polished final screens. What they rarely see is a designer who can describe their thinking clearly and honestly. That clarity is what separates a junior designer from a senior one.`
+  },
+  {
+    title:"3 · Explain the decision — not just the design",
+    color:"#EEEDFE",border:"#AFA9EC",text:"#26215C",tag:"#5B52CC",tagbg:"#EEEDFE",tagtext:"The Rationale",
+    body:`For every major design decision, answer: why this, and not something else?<br><br>You chose a modal over a full page. Why? You put the CTA on the left instead of the right. Why? You reduced the number of steps from 5 to 3. What did you cut, and how did you decide what to cut?<br><br>The rationale is the most overlooked part of every portfolio. It's also the most important part to a hiring team.`
+  },
+  {
+    title:"4 · End with a real outcome — and a real reflection",
+    color:"#E6F5F1",border:"#5DCAA5",text:"#04342C",tag:"#0F6E56",tagbg:"#E6F5F1",tagtext:"The Result",
+    body:`Give a number if you have one. Even a small one. "Task completion went from 61% to 84%" is more powerful than "users found the new design easier to use."<br><br>Then add one honest sentence about what you'd do differently. Not to criticise yourself — but to show that you keep learning. That sentence alone tells a hiring manager more about your maturity than 30 screens ever could.`
+  }
+];
+
+function setStep(i){
+  document.querySelectorAll('.step-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+  const s=steps[i];
+  const p=document.getElementById('stepPanel');
+  p.style.opacity='0';
+  setTimeout(()=>{
+    p.style.background=s.color;
+    p.style.borderColor=s.border;
+    p.innerHTML=`<h4 style="color:${s.text}">${s.title}</h4><p style="color:${s.text};opacity:.8">${s.body}</p><span class="tag" style="background:${s.tagbg};color:${s.tag};border:1px solid ${s.border}">${s.tagtext}</span>`;
+    p.style.opacity='1';
+  },180);
+}
+setStep(0);
+
+function toggleCheck(li){
+  const box=li.querySelector('.check-box');
+  box.classList.toggle('done');
+  box.textContent=box.classList.contains('done')?'✓':'';
+  const done=document.querySelectorAll('.check-box.done').length;
+  const total=document.querySelectorAll('.check-box').length;
+  const el=document.getElementById('checkScore');
+  if(done===0){el.textContent='';return}
+  const msgs=['Keep going — almost there.','Good start. Keep checking.','Halfway there. Your case study is getting stronger.','Looking solid. A few more to go.','Almost publication-ready.','Very strong case study.','This case study is ready. Publish it.'];
+  el.textContent=`${done}/${total} — ${msgs[Math.min(done-1,msgs.length-1)]}`;
+}
+
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
