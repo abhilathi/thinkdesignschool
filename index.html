@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Think Design School</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --amber:#EF9F27;
+  --amber-light:#FAC775;
+  --amber-dark:#BA7517;
+  --charcoal:#1E1C1A;
+  --charcoal2:#2C2A27;
+  --charcoal3:#3A3835;
+  --surface:#252320;
+  --surface2:#2E2C29;
+  --text:#F0EDE8;
+  --text-muted:#A8A29C;
+  --text-dim:#6B6560;
+  --border:#3A3835;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--charcoal);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 8%;position:sticky;top:0;z-index:100;
+  background:rgba(30,28,26,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.1}
+.nav-logo-text .think{font-size:22px;font-weight:800;color:var(--amber);letter-spacing:-0.5px}
+.nav-logo-text .ds{font-size:11px;font-weight:400;color:var(--text-muted);letter-spacing:3px;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:8px}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:14px;font-weight:500;padding:8px 16px;border-radius:8px;transition:all .2s}
+.nav-links a:hover{color:var(--text);background:var(--surface2)}
+.nav-cta{background:var(--amber)!important;color:var(--charcoal)!important;font-weight:600!important}
+.nav-cta:hover{background:var(--amber-light)!important;transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{
+  min-height:90vh;display:flex;align-items:center;
+  padding:80px 8% 60px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 70% 50%, rgba(239,159,39,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-grid{
+  position:absolute;inset:0;opacity:0.03;
+  background-image:linear-gradient(var(--amber) 1px, transparent 1px),linear-gradient(90deg, var(--amber) 1px, transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%;position:relative;z-index:1}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(239,159,39,0.1);border:1px solid rgba(239,159,39,0.2);
+  color:var(--amber);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  padding:6px 14px;border-radius:100px;margin-bottom:24px;
+}
+.hero-eyebrow span{width:6px;height:6px;background:var(--amber);border-radius:50%;display:inline-block}
+.hero h1{font-size:58px;font-weight:800;line-height:1.08;letter-spacing:-2px;margin-bottom:24px}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero-sub{font-size:18px;color:var(--text-muted);line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:15px;transition:all .2s;cursor:pointer;border:none}
+.btn-primary{background:var(--amber);color:var(--charcoal)}
+.btn-primary:hover{background:var(--amber-light);transform:translateY(-2px)}
+.btn-outline{border:1px solid var(--border);color:var(--text);background:transparent}
+.btn-outline:hover{border-color:var(--amber);color:var(--amber);background:rgba(239,159,39,0.05)}
+
+/* hero right — decorative mark */
+.hero-mark{display:flex;justify-content:center;align-items:center}
+.hero-mark svg{width:260px;height:auto;filter:drop-shadow(0 0 40px rgba(239,159,39,0.15))}
+
+/* pill tags */
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tag{font-size:12px;color:var(--text-muted);background:var(--surface);border:1px solid var(--border);padding:4px 12px;border-radius:100px}
+
+/* ── TRUST BAR ── */
+.trust{padding:28px 8%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;gap:40px;align-items:center;overflow:hidden}
+.trust-label{font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:2px;white-space:nowrap}
+.trust-items{display:flex;gap:40px;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:8px;color:var(--text-muted);font-size:14px;font-weight:500}
+.trust-dot{width:5px;height:5px;background:var(--amber);border-radius:50%}
+
+/* ── SECTIONS ── */
+.section{padding:96px 8%}
+.section-label{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
+.section-title{font-size:44px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+.section-sub{font-size:18px;color:var(--text-muted);max-width:560px;line-height:1.7}
+.section-head{margin-bottom:60px}
+.section-head.center{text-align:center}
+.section-head.center .section-sub{margin:0 auto}
+
+/* ── SERVICES GRID ── */
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border);border-radius:20px;overflow:hidden}
+.service-card{background:var(--charcoal);padding:40px;transition:background .2s;position:relative}
+.service-card:hover{background:var(--surface)}
+.service-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:rgba(239,159,39,0.1);border:1px solid rgba(239,159,39,0.15);
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+}
+.service-icon svg{width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.service-card h3{font-size:20px;font-weight:700;margin-bottom:10px;letter-spacing:-0.3px}
+.service-card p{font-size:15px;color:var(--text-muted);line-height:1.65}
+.service-card .arrow{
+  position:absolute;top:40px;right:40px;width:32px;height:32px;
+  border-radius:8px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .2s;
+}
+.service-card:hover .arrow{opacity:1}
+.service-card .arrow svg{width:14px;height:14px;stroke:var(--amber);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── STATS ── */
+.stats-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat{padding:48px 32px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat-num{font-size:48px;font-weight:800;color:var(--amber);letter-spacing:-2px;line-height:1}
+.stat-label{font-size:14px;color:var(--text-muted);margin-top:8px;font-weight:500}
+
+/* ── WHY GRID ── */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.why-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;transition:border-color .2s}
+.why-card:hover{border-color:rgba(239,159,39,0.3)}
+.why-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--amber);margin-bottom:16px}
+.why-card h3{font-size:18px;font-weight:700;margin-bottom:10px;letter-spacing:-0.3px}
+.why-card p{font-size:14px;color:var(--text-muted);line-height:1.65}
+
+/* ── BLOG CARDS ── */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.blog-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .2s;cursor:pointer}
+.blog-card:hover{border-color:rgba(239,159,39,0.25);transform:translateY(-3px)}
+.blog-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:32px;position:relative;overflow:hidden}
+.blog-thumb-ux{background:linear-gradient(135deg,rgba(239,159,39,0.12),rgba(239,159,39,0.04))}
+.blog-thumb-ai{background:linear-gradient(135deg,rgba(139,92,246,0.12),rgba(139,92,246,0.04))}
+.blog-thumb-career{background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.04))}
+.blog-cat{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:10px}
+.cat-ux{color:var(--amber);background:rgba(239,159,39,0.1)}
+.cat-ai{color:#a78bfa;background:rgba(139,92,246,0.1)}
+.cat-career{color:#34d399;background:rgba(16,185,129,0.1)}
+.blog-body{padding:24px}
+.blog-card h3{font-size:16px;font-weight:600;margin-bottom:8px;line-height:1.4;letter-spacing:-0.2px}
+.blog-card p{font-size:13px;color:var(--text-muted);line-height:1.6}
+.blog-meta{font-size:12px;color:var(--text-dim);margin-top:16px;display:flex;gap:12px}
+
+/* ── VISION ── */
+.vision{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:96px 8%}
+.vision-inner{max-width:780px;margin:0 auto;text-align:center}
+.vision-quote{font-size:28px;font-weight:600;line-height:1.5;letter-spacing:-0.5px;color:var(--text);margin-bottom:24px}
+.vision-quote em{font-style:normal;color:var(--amber)}
+.vision-attr{font-size:13px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase}
+
+/* ── CTA ── */
+.cta-section{padding:96px 8%;text-align:center}
+.cta-inner{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:24px;padding:72px 48px;position:relative;overflow:hidden;
+}
+.cta-glow{
+  position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);
+  width:400px;height:200px;
+  background:radial-gradient(ellipse,rgba(239,159,39,0.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-inner h2{font-size:44px;font-weight:800;letter-spacing:-1.5px;margin-bottom:16px}
+.cta-inner p{font-size:18px;color:var(--text-muted);margin-bottom:36px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{padding:48px 8% 32px;border-top:1px solid var(--border)}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .think{font-size:22px;font-weight:800;color:var(--amber)}
+.footer-brand .ds{font-size:11px;font-weight:400;color:var(--text-dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.footer-brand p{font-size:14px;color:var(--text-muted);line-height:1.65;max-width:260px}
+.footer-col h4{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;color:var(--text-muted);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.footer-col a:hover{color:var(--amber)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:13px;color:var(--text-dim)}
+.footer-bottom .made{font-size:13px;color:var(--text-dim)}
+.footer-bottom .made span{color:var(--amber)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-mark{display:none}
+  .services-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat{border-right:none;border-bottom:1px solid var(--border)}
+  .stat:nth-child(odd){border-right:1px solid var(--border)}
+  .stat:last-child{border-bottom:none}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .blog-grid{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:16px 5%}
+  .nav-links a:not(.nav-cta){display:none}
+  .hero{padding:60px 5% 48px;min-height:auto}
+  .hero h1{font-size:40px;letter-spacing:-1px}
+  .section{padding:64px 5%}
+  .section-title{font-size:34px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .why-grid{grid-template-columns:1fr}
+  .blog-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+  .cta-inner{padding:48px 24px}
+  .cta-inner h2{font-size:32px}
+  .trust{gap:20px}
+  .trust-items{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <!-- Inline SVG logo: pencil + bulb mark -->
+    <svg width="38" height="50" viewBox="0 0 76 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- bulb body -->
+      <path d="M38 4C20 4 7 16 7 32C7 44 14 54 24 60L22 72H54L52 60C62 54 69 44 69 32C69 16 56 4 38 4Z" fill="#EF9F27"/>
+      <!-- shading strip -->
+      <path d="M44 4.5C52 8 58 16 61 26C64 36 62 47 56 55L52 60H44L46 32C46 20 46 10 44 4.5Z" fill="#BA7517" opacity="0.35"/>
+      <path d="M30 4.8C24 8 18 16 15 26C13 34 14 43 18 51L22 60H30L28 32C27 20 28 10 30 4.8Z" fill="#FAC775" opacity="0.35"/>
+      <!-- circuit lines on top -->
+      <line x1="38" y1="4" x2="38" y2="-8" stroke="#EF9F27" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="24" y1="8" x2="17" y2="0" stroke="#EF9F27" stroke-width="2" stroke-linecap="round"/>
+      <line x1="52" y1="8" x2="59" y2="0" stroke="#EF9F27" stroke-width="2" stroke-linecap="round"/>
+      <line x1="14" y1="20" x2="5"  y2="16" stroke="#FAC775" stroke-width="1.8" stroke-linecap="round"/>
+      <line x1="62" y1="20" x2="71" y2="16" stroke="#FAC775" stroke-width="1.8" stroke-linecap="round"/>
+      <!-- node dots -->
+      <circle cx="38" cy="-8" r="3.5" fill="#EF9F27"/>
+      <circle cx="16"  cy="-1" r="3" fill="#EF9F27"/>
+      <circle cx="60"  cy="-1" r="3" fill="#EF9F27"/>
+      <!-- ferrule bands -->
+      <rect x="22" y="72" width="32" height="8" rx="2" fill="#444441"/>
+      <rect x="22" y="80" width="32" height="7" rx="1" fill="#666462"/>
+      <!-- pencil body -->
+      <rect x="22" y="87" width="32" height="4" fill="#FAC775"/>
+      <!-- pencil taper -->
+      <polygon points="22,91 54,91 45,106 31,106" fill="#EF9F27"/>
+      <!-- wood tip -->
+      <polygon points="31,106 45,106 38,118" fill="#F5C4A0"/>
+      <!-- graphite -->
+      <polygon points="34,112 42,112 38,118" fill="#2C2A27"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="think">Think</span>
+      <span class="ds">Design School</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#workshops">Workshops</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact" class="btn nav-cta">Book a Session</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span></span>Free for Everyone</div>
+      <h1>Where Ideas Become <em>Great Design</em></h1>
+      <p class="hero-sub">A free learning platform for designers at every stage — mentoring, portfolio reviews, UX audits, workshops, and articles that actually help you grow.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn btn-primary">Explore What We Offer</a>
+        <a href="#blog" class="btn btn-outline">Read the Blog</a>
+      </div>
+      <div class="hero-tags">
+        <span class="tag">UX Design</span>
+        <span class="tag">Product Design</span>
+        <span class="tag">AI for Designers</span>
+        <span class="tag">Design Thinking</span>
+        <span class="tag">Career Growth</span>
+      </div>
+    </div>
+    <div class="hero-mark">
+      <!-- Large decorative logo mark -->
+      <svg viewBox="0 0 180 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M90 12C55 12 26 36 26 68C26 88 36 104 52 114L48 140H132L128 114C144 104 154 88 154 68C154 36 125 12 90 12Z" fill="#EF9F27" opacity="0.12"/>
+        <path d="M90 18C58 18 32 40 32 68C32 86 41 100 55 110L51 136H129L125 110C139 100 148 86 148 68C148 40 122 18 90 18Z" fill="none" stroke="#EF9F27" stroke-width="1.5" opacity="0.3"/>
+        <!-- inner detail lines -->
+        <line x1="70" y1="38" x2="70" y2="108" stroke="#EF9F27" stroke-width="1" opacity="0.15"/>
+        <line x1="90" y1="30" x2="90" y2="108" stroke="#EF9F27" stroke-width="1" opacity="0.15"/>
+        <line x1="110" y1="38" x2="110" y2="108" stroke="#EF9F27" stroke-width="1" opacity="0.15"/>
+        <line x1="36"  y1="55" x2="144" y2="55" stroke="#EF9F27" stroke-width="1" opacity="0.15"/>
+        <line x1="33"  y1="72" x2="147" y2="72" stroke="#EF9F27" stroke-width="1" opacity="0.15"/>
+        <line x1="36"  y1="89" x2="144" y2="89" stroke="#EF9F27" stroke-width="1" opacity="0.15"/>
+        <!-- glow bulb -->
+        <path d="M90 22C62 22 38 42 38 68C38 84 46 97 58 106L55 132H125L122 106C134 97 142 84 142 68C142 42 118 22 90 22Z" fill="#EF9F27" opacity="0.08"/>
+        <!-- circuit spikes -->
+        <line x1="90" y1="18" x2="90" y2="4" stroke="#EF9F27" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="65" y1="24" x2="55" y2="12" stroke="#EF9F27" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="115" y1="24" x2="125" y2="12" stroke="#EF9F27" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="42"  y1="44" x2="30" y2="38" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+        <line x1="138" y1="44" x2="150" y2="38" stroke="#EF9F27" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+        <circle cx="90" cy="4"   r="5" fill="#EF9F27" opacity="0.7"/>
+        <circle cx="54" cy="11"  r="4" fill="#EF9F27" opacity="0.6"/>
+        <circle cx="126" cy="11" r="4" fill="#EF9F27" opacity="0.6"/>
+        <!-- ferrule -->
+        <rect x="55" y="136" width="70" height="14" rx="4" fill="#3A3835" opacity="0.8"/>
+        <rect x="55" y="150" width="70" height="12" rx="2" fill="#4A4845" opacity="0.6"/>
+        <!-- pencil body -->
+        <rect x="55" y="162" width="70" height="18" rx="1" fill="#FAC775" opacity="0.7"/>
+        <!-- taper -->
+        <polygon points="55,180 125,180 108,204 72,204" fill="#EF9F27" opacity="0.5"/>
+        <!-- tip -->
+        <polygon points="72,204 108,204 90,222" fill="#F5C4A0" opacity="0.5"/>
+        <polygon points="83,214 97,214 90,222" fill="#2C2A27" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ── -->
+<div class="trust">
+  <span class="trust-label">What you get</span>
+  <div class="trust-items">
+    <div class="trust-item"><span class="trust-dot"></span> Portfolio Reviews</div>
+    <div class="trust-item"><span class="trust-dot"></span> UX Audits</div>
+    <div class="trust-item"><span class="trust-dot"></span> 1:1 Mentoring</div>
+    <div class="trust-item"><span class="trust-dot"></span> Live Workshops</div>
+    <div class="trust-item"><span class="trust-dot"></span> Design Articles</div>
+    <div class="trust-item"><span class="trust-dot"></span> Community</div>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section class="section" id="services">
+  <div class="section-head">
+    <div class="section-label">What we do</div>
+    <h2 class="section-title">Professional services<br>built for designers</h2>
+    <p class="section-sub">Whether you're just starting out or leading a team — there's something here for your stage.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M7 17v4M17 17v4M3 21h18"/></svg>
+      </div>
+      <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+      <h3>Portfolio Reviews</h3>
+      <p>Detailed, honest feedback on your storytelling, case study structure, and presentation — so your portfolio lands the interviews you deserve.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35M11 8v3M11 14h.01"/></svg>
+      </div>
+      <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+      <h3>UX Audits</h3>
+      <p>Surface usability issues, friction points, and untapped product opportunities through structured evaluation and practical recommendations.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+      <h3>1:1 Mentoring</h3>
+      <p>Personalized guidance for career transitions, interview prep, promotion planning, or becoming a stronger design lead.</p>
+    </div>
+    <div class="service-card" id="workshops">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+      <h3>Workshops</h3>
+      <p>Interactive, hands-on sessions covering UX methods, AI for designers, product thinking, and design strategy — run live and recorded.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free for all learners</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Core learning tracks</div></div>
+    <div class="stat"><div class="stat-num">1:1</div><div class="stat-label">Personalised mentoring</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Community growth</div></div>
+  </div>
+</div>
+
+<!-- ── WHY TDS ── -->
+<section class="section">
+  <div class="section-head center">
+    <div class="section-label">Why Think Design School</div>
+    <h2 class="section-title">Designed for how designers actually learn</h2>
+    <p class="section-sub">Not theory-heavy courses. Real practice, real feedback, real community.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h3>Practical over theoretical</h3>
+      <p>Every resource, session, and article is grounded in real work — tools, decisions, and tradeoffs you'll actually face on the job.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h3>Expert perspective</h3>
+      <p>Built by a senior designer with 15+ years in enterprise UX and product design — the kind of insight that takes years to develop.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h3>Completely free</h3>
+      <p>No paywalls, no subscriptions. Quality design education should be accessible to everyone regardless of where they are in the world.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <h3>Portfolio-first thinking</h3>
+      <p>Every piece of learning connects back to showing your work well — because getting noticed matters as much as doing good design.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">05</div>
+      <h3>AI-ready curriculum</h3>
+      <p>Understand how AI fits into your design workflow — not as a buzzword, but as a practical tool to think and ship faster.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">06</div>
+      <h3>Community-driven</h3>
+      <p>Learn alongside a growing community of designers at all levels — share work, ask questions, and grow together.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BLOG ── -->
+<section class="section" id="blog" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="section-head center">
+    <div class="section-label">Design Insights</div>
+    <h2 class="section-title">Articles worth reading</h2>
+    <p class="section-sub">Plain-language articles on UX, product design, AI tools, and growing your design career.</p>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-thumb blog-thumb-ux">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="8" y="8" width="32" height="24" rx="4" stroke="#EF9F27" stroke-width="2"/><path d="M16 40h16M24 32v8" stroke="#EF9F27" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="20" r="5" stroke="#FAC775" stroke-width="1.5"/></svg>
+      </div>
+      <div class="blog-body">
+        <span class="blog-cat cat-ux">UX Design</span>
+        <h3>How to structure a UX case study that actually gets you hired</h3>
+        <p>Most portfolios explain what was done. Great ones explain why every decision was made — and show the mess in between.</p>
+        <div class="blog-meta"><span>5 min read</span><span>Portfolio</span></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-thumb blog-thumb-ai">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="14" stroke="#a78bfa" stroke-width="2"/><path d="M18 24h12M24 18v12" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"/><circle cx="24" cy="24" r="4" fill="#a78bfa" opacity="0.2"/></svg>
+      </div>
+      <div class="blog-body">
+        <span class="blog-cat cat-ai">AI for Designers</span>
+        <h3>Using AI as a thinking partner, not a shortcut</h3>
+        <p>The designers winning with AI aren't using it to skip thinking — they're using it to think harder, faster, and across more possibilities.</p>
+        <div class="blog-meta"><span>4 min read</span><span>Tools</span></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-thumb blog-thumb-career">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M12 36l8-10 6 6 8-14 8 8" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="36" r="2" fill="#34d399"/></svg>
+      </div>
+      <div class="blog-body">
+        <span class="blog-cat cat-career">Career Growth</span>
+        <h3>From IC designer to design lead: what actually changes</h3>
+        <p>It's not just about doing more design. It's about changing the way you think about impact, ownership, and other people's growth.</p>
+        <div class="blog-meta"><span>6 min read</span><span>Leadership</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VISION ── -->
+<div class="vision">
+  <div class="vision-inner">
+    <div class="section-label" style="text-align:center;margin-bottom:24px">Our vision</div>
+    <p class="vision-quote">"To build a global community where designers learn to <em>think critically</em>, create with intention, and make a meaningful impact through great experiences."</p>
+    <p class="vision-attr">Think Design School · Est. 2026</p>
+  </div>
+</div>
+
+<!-- ── CTA ── -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <div class="cta-glow"></div>
+    <div class="section-label" style="justify-content:center;display:flex">Get started</div>
+    <h2>Ready to level up your design career?</h2>
+    <p>Book a mentoring session, get your portfolio reviewed, or join the next workshop — all free.</p>
+    <div class="cta-btns">
+      <a href="#" class="btn btn-primary">Book a Session</a>
+      <a href="#workshops" class="btn btn-outline">Explore Workshops</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="think">Think</div>
+      <div class="ds">Design School</div>
+      <p>A free learning platform shaping the next generation of thoughtful, skilled, and impactful designers.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <a href="#">UX Design</a>
+      <a href="#">Product Design</a>
+      <a href="#">AI for Designers</a>
+      <a href="#">Design Thinking</a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#">Portfolio Reviews</a>
+      <a href="#">UX Audits</a>
+      <a href="#">1:1 Mentoring</a>
+      <a href="#">Workshops</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#">Blog</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Community</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Think Design School · Shaping the Future of Design</p>
+    <p class="made">Made with <span>♥</span> for the design community</p>
+  </div>
+</footer>
+
+</body>
+</html>
