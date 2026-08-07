@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>It's Not You. It's The Design. — A Design Patterns Book | Think Design School</title>
+<meta name="description" content="A funny, plain-English tour of 30 design patterns that quietly run your everyday apps — by Think Design School.">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style/style.css">
+</head>
+<body class="page-book page-article">
+
+<header>
+  <!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html"><svg class="nav-logo-mark" width="24" height="21" viewBox="0 0 30 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 26V8L9 2V26H2Z" fill="currentColor"/><path d="M11 26V5L18 0V26H11Z" fill="currentColor"/><path d="M20 26V10L27 5V26H20Z" fill="currentColor"/></svg><span class="nav-brand-text">think <span class="nb-sub">Design School</span></span></a>
+  <div class="nav-links">
+    <a href="index.html#services">Services</a>
+    <a href="index.html#blog">Blog</a>
+    <a href="contact.html">Book a Session</a>
+  </div>
+</nav>
+</header>
+
+<div class="book-hero">
+  <span class="eyebrow">A DESIGN PATTERNS BOOK</span>
+  <h1>It's Not You. <em>It's the Design.</em></h1>
+  <p class="subhead">30 Sneaky Little Design Patterns Quietly Running Your Everyday Apps</p>
+  <p class="lede">A friendly guide to understanding the UX behind the screens you use every day.</p>
+</div>
+
+<div class="book-layout">
+
+  <button class="toc-toggle" onclick="document.querySelector('.toc').classList.toggle('open')">☰ Table of Contents</button>
+
+  <aside class="toc">
+    <div class="toc-section">
+      <div class="toc-section-title">Sec. 1 — Don't Overwhelm Me</div>
+      <a class="toc-item" href="#ch-progressive-disclosure"><span class="num">01</span> Progressive Disclosure</a>
+      <a class="toc-item" href="#ch-hicks-law"><span class="num">02</span> Hick's Law</a>
+      <a class="toc-item" href="#ch-paradox-of-choice"><span class="num">03</span> Paradox of Choice</a>
+      <a class="toc-item" href="#ch-millers-law"><span class="num">04</span> Miller's Law</a>
+      <a class="toc-item" href="#ch-chunking"><span class="num">05</span> Chunking</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-title">Sec. 2 — Don't Make Me Think</div>
+      <a class="toc-item" href="#ch-recognition"><span class="num">06</span> Recognition Over Recall</a>
+      <a class="toc-item" href="#ch-fitts"><span class="num">07</span> Fitts's Law</a>
+      <a class="toc-item" href="#ch-consistency"><span class="num">08</span> Consistency Principle</a>
+      <a class="toc-item" href="#ch-affordance"><span class="num">09</span> Affordance</a>
+      <a class="toc-item" href="#ch-breadcrumbs"><span class="num">10</span> Breadcrumbs</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-title">Sec. 3 — Don't Scare Me</div>
+      <a class="toc-item" href="#ch-error-prevention"><span class="num">11</span> Error Prevention</a>
+      <a class="toc-item" href="#ch-undo"><span class="num">12</span> Undo Over Confirm</a>
+      <a class="toc-item" href="#ch-forgiving-format"><span class="num">13</span> Forgiving Format</a>
+      <a class="toc-item" href="#ch-graceful-degradation"><span class="num">14</span> Graceful Degradation</a>
+      <a class="toc-item" href="#ch-confirmation-feedback"><span class="num">15</span> Confirmation Feedback</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-title">Sec. 4 — Keep Me Hooked</div>
+      <a class="toc-item" href="#ch-zeigarnik"><span class="num">16</span> Zeigarnik Effect</a>
+      <a class="toc-item" href="#ch-variable-rewards"><span class="num">17</span> Variable Rewards</a>
+      <a class="toc-item" href="#ch-gamification"><span class="num">18</span> Gamification</a>
+      <a class="toc-item" href="#ch-peak-end"><span class="num">19</span> Peak-End Rule</a>
+      <a class="toc-item" href="#ch-streaks"><span class="num">20</span> Streaks & Habits</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-title">Sec. 5 — Make Me Trust You</div>
+      <a class="toc-item" href="#ch-social-proof"><span class="num">21</span> Social Proof</a>
+      <a class="toc-item" href="#ch-scarcity"><span class="num">22</span> Scarcity Principle</a>
+      <a class="toc-item" href="#ch-anchoring"><span class="num">23</span> Anchoring</a>
+      <a class="toc-item" href="#ch-default-bias"><span class="num">24</span> Default Bias</a>
+      <a class="toc-item" href="#ch-loss-aversion"><span class="num">25</span> Loss Aversion</a>
+    </div>
+    <div class="toc-section">
+      <div class="toc-section-title">Sec. 6 — Make Me Feel Something</div>
+      <a class="toc-item" href="#ch-empty-states"><span class="num">26</span> Empty States</a>
+      <a class="toc-item" href="#ch-skeleton-screens"><span class="num">27</span> Skeleton Screens</a>
+      <a class="toc-item" href="#ch-microinteractions"><span class="num">28</span> Microinteractions</a>
+      <a class="toc-item" href="#ch-system-status"><span class="num">29</span> System Status Visibility</a>
+      <a class="toc-item" href="#ch-delight"><span class="num">30</span> Delight & Surprise</a>
+    </div>
+  </aside>
+
+  <main class="book-content">
+
+    <!-- SECTION 1 -->
+    <section class="chapter-section" id="section-1">
+      <div class="section-header">
+        <svg class="section-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One calm center surrounded by scattered clutter">
+          <circle cx="50" cy="52" r="16" fill="var(--moss)"/>
+          <circle cx="20" cy="20" r="7" fill="var(--clay)"/>
+          <circle cx="80" cy="18" r="6" fill="var(--clay)"/>
+          <circle cx="14" cy="60" r="5" fill="var(--clay)"/>
+          <circle cx="86" cy="58" r="7" fill="var(--clay)"/>
+          <circle cx="30" cy="85" r="6" fill="var(--clay)"/>
+          <circle cx="70" cy="86" r="5" fill="var(--clay)"/>
+          <circle cx="50" cy="10" r="4" fill="var(--clay)"/>
+        </svg>
+        <div class="section-text">
+          <span class="eyebrow">Section 1</span>
+          <h2>Don't Overwhelm Me</h2>
+        </div>
+      </div>
+
+      <article class="chapter" id="ch-progressive-disclosure">
+        <div class="chapter-num">01</div>
+        <h3>Progressive Disclosure</h3>
+        <p class="tagline">"Netflix knows you don't need to see 47 settings just to change your password"</p>
+        <div class="block">
+          <span class="block-label">What it actually is</span>
+          <p>Show people the bare minimum first. Reveal more only when they ask for it — like a magician who doesn't dump the whole deck on your lap, just pulls one card at a time.</p>
+        </div>
+        <div class="block">
+          <span class="block-label">Real life version</span>
+          <p>You walk into a restaurant. The waiter doesn't recite the entire inventory of the kitchen — he hands you a menu with categories: Starters, Mains, Desserts. Want details? Ask, and then he tells you the fish was flown in this morning.</p>
+        </div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="12" width="20" height="20" fill="#BD5B3B"/><rect x="40" y="12" width="20" height="20" fill="#BD5B3B"/><rect x="68" y="12" width="20" height="20" fill="#BD5B3B"/><rect x="12" y="40" width="20" height="20" fill="#BD5B3B"/><rect x="40" y="40" width="20" height="20" fill="#BD5B3B"/><rect x="68" y="40" width="20" height="20" fill="#BD5B3B"/><rect x="12" y="68" width="20" height="20" fill="#BD5B3B"/><rect x="40" y="68" width="20" height="20" fill="#BD5B3B"/><rect x="68" y="68" width="20" height="20" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="25" y="35" width="50" height="22" rx="6" fill="#4C5FAB"/><path d="M42 64 L50 74 L58 64" fill="none" stroke="#4C5FAB" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> Your microwave has 40 buttons for "quick reheat," and you still press Start twice and pray.</span>
+          <span class="tag good"><span class="icon">✓</span> WhatsApp settings: tap Privacy, then see who can view your last seen. Nothing screamed at you upfront.</span>
+        </div>
+        <div class="rule">Don't hand someone a toolbox when they asked for a screwdriver.</div>
+      </article>
+
+      <article class="chapter" id="ch-hicks-law">
+        <div class="chapter-num">02</div>
+        <h3>Hick's Law</h3>
+        <p class="tagline">"Too many choices and the brain just... leaves"</p>
+        <div class="block">
+          <span class="block-label">What it actually is</span>
+          <p>The more options you give someone, the longer it takes them to decide — and past a certain point, they just give up entirely.</p>
+        </div>
+        <div class="block">
+          <span class="block-label">Real life version</span>
+          <p>A restaurant menu with 14 pages and a "chef's special" that changes daily. Twenty minutes later, you order butter chicken. Same as always.</p>
+        </div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="6" fill="#BD5B3B"/><circle cx="36" cy="14" r="6" fill="#BD5B3B"/><circle cx="58" cy="14" r="6" fill="#BD5B3B"/><circle cx="80" cy="14" r="6" fill="#BD5B3B"/><circle cx="14" cy="36" r="6" fill="#BD5B3B"/><circle cx="36" cy="36" r="6" fill="#BD5B3B"/><circle cx="58" cy="36" r="6" fill="#BD5B3B"/><circle cx="80" cy="36" r="6" fill="#BD5B3B"/><circle cx="14" cy="58" r="6" fill="#BD5B3B"/><circle cx="36" cy="58" r="6" fill="#BD5B3B"/><circle cx="58" cy="58" r="6" fill="#BD5B3B"/><circle cx="80" cy="58" r="6" fill="#BD5B3B"/><circle cx="14" cy="80" r="6" fill="#BD5B3B"/><circle cx="36" cy="80" r="6" fill="#BD5B3B"/><circle cx="58" cy="80" r="6" fill="#BD5B3B"/><circle cx="80" cy="80" r="6" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="40" width="52" height="20" rx="10" fill="none" stroke="#4C5FAB" stroke-width="4"/><circle cx="80" cy="50" r="9" fill="none" stroke="#4C5FAB" stroke-width="4"/><line x1="86.5" y1="56.5" x2="93" y2="63" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A TV remote with 60 buttons, three doing the same thing, plus a mystery "SAP" button nobody presses on purpose.</span>
+          <span class="tag good"><span class="icon">✓</span> Google's homepage: one search box, one button. It let you ask for more instead of drowning you in it.</span>
+        </div>
+        <div class="rule">Every extra choice is a tiny tax on someone's patience. Charge wisely.</div>
+      </article>
+
+      <article class="chapter" id="ch-paradox-of-choice">
+        <div class="chapter-num">03</div>
+        <h3>Paradox of Choice</h3>
+        <p class="tagline">"31 flavors, zero decisions made"</p>
+        <div class="block">
+          <span class="block-label">What it actually is</span>
+          <p>More options don't make people happier — past a point, they make people anxious, indecisive, and less satisfied with whatever they eventually pick.</p>
+        </div>
+        <div class="block">
+          <span class="block-label">Real life version</span>
+          <p>You go to buy shampoo. There are 40 bottles. You stand there for 10 minutes, grab one at random, and immediately feel like you probably picked wrong.</p>
+        </div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="45" width="12" height="40" fill="#BD5B3B"/><rect x="24" y="40" width="12" height="45" fill="#BD5B3B"/><rect x="40" y="48" width="12" height="37" fill="#BD5B3B"/><rect x="56" y="42" width="12" height="43" fill="#BD5B3B"/><rect x="72" y="46" width="12" height="39" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="55" width="16" height="30" rx="3" fill="#E9EBF7"/><rect x="42" y="35" width="16" height="50" rx="3" fill="#4C5FAB"/><rect x="66" y="55" width="16" height="30" rx="3" fill="#E9EBF7"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A food delivery app showing 600 restaurants with no sorting, so you scroll 15 minutes and order the same place anyway.</span>
+          <span class="tag good"><span class="icon">✓</span> Netflix's "Top picks for you" — 8,000 titles exist, but it shows you 10.</span>
+        </div>
+        <div class="rule">More options isn't more freedom. Past a point, it's just more regret.</div>
+      </article>
+
+      <article class="chapter" id="ch-millers-law">
+        <div class="chapter-num">04</div>
+        <h3>Miller's Law (7±2)</h3>
+        <p class="tagline">"Why your brain can't remember more than one WiFi password at a time"</p>
+        <div class="block">
+          <span class="block-label">What it actually is</span>
+          <p>Human short-term memory can only hold about 5-9 items at once. Cram in more, and things just fall out the other side.</p>
+        </div>
+        <div class="block">
+          <span class="block-label">Real life version</span>
+          <p>Someone reads out a 10-digit phone number in one breath. You remember the first 4 digits and the vibe of the rest.</p>
+        </div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="14" width="60" height="9" rx="2" fill="#BD5B3B"/><rect x="20" y="28" width="60" height="9" rx="2" fill="#BD5B3B"/><rect x="20" y="42" width="60" height="9" rx="2" fill="#BD5B3B"/><rect x="20" y="56" width="60" height="9" rx="2" fill="#BD5B3B"/><rect x="20" y="70" width="60" height="9" rx="2" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="40" width="28" height="20" rx="5" fill="#4C5FAB"/><path d="M48 50 H62" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round"/><path d="M58 45 L64 50 L58 55" fill="none" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><rect x="68" y="40" width="20" height="20" rx="5" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A signup form asking for 10+ fields on one screen, all required, all at once.</span>
+          <span class="tag good"><span class="icon">✓</span> OTP logins that only ask for a phone number, then the OTP. Two small asks instead of one overwhelming one.</span>
+        </div>
+        <div class="rule">If people need a notepad to get through your form, your form has already lost.</div>
+      </article>
+
+      <article class="chapter" id="ch-chunking">
+        <div class="chapter-num">05</div>
+        <h3>Chunking</h3>
+        <p class="tagline">"Phone numbers have dashes for a reason, genius"</p>
+        <div class="block">
+          <span class="block-label">What it actually is</span>
+          <p>Breaking large amounts of information into smaller, organized groups makes it dramatically easier for the brain to process and remember.</p>
+        </div>
+        <div class="block">
+          <span class="block-label">Real life version</span>
+          <p>A 10-digit phone number written as 98470 12345 is instantly easier to hold in your head than 9847012345 run together as one long string.</p>
+        </div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="45" width="80" height="12" rx="2" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="45" width="20" height="12" rx="2" fill="#4C5FAB"/><rect x="36" y="45" width="20" height="12" rx="2" fill="#4C5FAB"/><rect x="62" y="45" width="20" height="12" rx="2" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A card payment form asking you to type all 16 digits into one continuous, un-separated box.</span>
+          <span class="tag good"><span class="icon">✓</span> That same field auto-inserting spaces every 4 digits as you type, so it visually reads like a real card.</span>
+        </div>
+        <div class="rule">Group information the way the brain already wants to hold it.</div>
+      </article>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="chapter-section" id="section-2">
+      <div class="section-header">
+        <svg class="section-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A lightbulb with a clear checkmark inside, meaning the answer is obvious">
+          <circle cx="50" cy="42" r="26" fill="none" stroke="var(--indigo)" stroke-width="5"/>
+          <rect x="40" y="66" width="20" height="10" rx="3" fill="var(--indigo)"/>
+          <rect x="43" y="78" width="14" height="6" rx="2" fill="var(--indigo)"/>
+          <path d="M38 42 L47 51 L64 30" fill="none" stroke="var(--moss)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="section-text">
+          <span class="eyebrow">Section 2</span>
+          <h2>Don't Make Me Think</h2>
+        </div>
+      </div>
+      <article class="chapter" id="ch-recognition">
+        <div class="chapter-num">06</div>
+        <h3>Recognition Over Recall</h3>
+        <p class="tagline">"Show me the icon, don't make me remember the command"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>People recognize things far more easily than they recall them from memory. Show visible options instead of demanding people remember commands or steps.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>You don't memorize a train station's platform layout — you just recognize the number sign the moment you see it.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="40" width="70" height="20" rx="3" fill="none" stroke="#BD5B3B" stroke-width="3"/><line x1="22" y1="50" x2="22" y2="50" stroke="#BD5B3B" stroke-width="4"/><rect x="20" y="46" width="2" height="8" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="38" width="20" height="20" rx="4" fill="#4C5FAB"/><circle cx="50" cy="48" r="10" fill="#4C5FAB"/><polygon points="76,38 86,58 66,58" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> Old command-line tools where you must type an exact phrase from memory with zero visible hints.</span>
+          <span class="tag good"><span class="icon">✓</span> Right-click showing "Delete" right there in the menu — no memorization needed.</span>
+        </div>
+        <div class="rule">Don't make people remember what they can just look at.</div>
+      </article>
+
+      <article class="chapter" id="ch-fitts">
+        <div class="chapter-num">07</div>
+        <h3>Fitts's Law</h3>
+        <p class="tagline">"Why the 'X' button is always where your finger isn't"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>The time it takes to reach a target depends on its size and distance — bigger, closer targets are faster and easier to hit.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>The light switch by the door is easy to hit in the dark because it's big and close, unlike the tiny one hidden behind the curtain.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="86" cy="14" r="6" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="24" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A tiny "Skip Ad" button that appears in a corner for half a second before vanishing.</span>
+          <span class="tag good"><span class="icon">✓</span> Mobile keyboards making the space bar — used constantly — the single biggest key.</span>
+        </div>
+        <div class="rule">Make important things big and close. Make regret-inducing things small and far.</div>
+      </article>
+
+      <article class="chapter" id="ch-consistency">
+        <div class="chapter-num">08</div>
+        <h3>Consistency Principle</h3>
+        <p class="tagline">"If the back button teleports me once, I stop trusting it forever"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Similar things should look, behave, and respond the same way throughout an experience so people can apply what they've already learned.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Every auto-rickshaw meter works the same way regardless of driver — you never have to relearn how fare calculation works.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M20 50 L34 38 M20 50 L34 62" stroke="#BD5B3B" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="60" y1="38" x2="80" y2="62" stroke="#BD5B3B" stroke-width="5" stroke-linecap="round"/><line x1="80" y1="38" x2="60" y2="62" stroke="#BD5B3B" stroke-width="5" stroke-linecap="round"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M15 50 L27 40 M15 50 L27 60" stroke="#4C5FAB" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 50 L54 40 M42 50 L54 60" stroke="#4C5FAB" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M69 50 L81 40 M69 50 L81 60" stroke="#4C5FAB" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> An app where "back" sometimes goes to the previous screen and sometimes closes the app entirely.</span>
+          <span class="tag good"><span class="icon">✓</span> Every "Cancel" button in iOS sitting in the same place across every app, every time.</span>
+        </div>
+        <div class="rule">Once someone learns a pattern in your product, don't make them unlearn it three screens later.</div>
+      </article>
+
+      <article class="chapter" id="ch-affordance">
+        <div class="chapter-num">09</div>
+        <h3>Affordance</h3>
+        <p class="tagline">"A button that doesn't look like a button is just a rectangle lying to you"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>The visual properties of an object should suggest how it's used — a button should look pressable, a slider should look draggable.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A door handle you pull looks different from a flat plate you push — you know which to do before you even touch it.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><line x1="20" y1="40" x2="80" y2="40" stroke="#BD5B3B" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="54" x2="65" y2="54" stroke="#BD5B3B" stroke-width="4" stroke-linecap="round"/><line x1="20" y1="68" x2="72" y2="68" stroke="#BD5B3B" stroke-width="4" stroke-linecap="round"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="42" width="52" height="26" rx="6" fill="#E9EBF7"/><rect x="20" y="36" width="52" height="26" rx="6" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> Flat, colorless text that's secretly a clickable link, indistinguishable from regular text.</span>
+          <span class="tag good"><span class="icon">✓</span> A raised, shadowed button in a bold color that clearly wants to be pressed.</span>
+        </div>
+        <div class="rule">If your button looks like a label, it's going to get ignored like one.</div>
+      </article>
+
+      <article class="chapter" id="ch-breadcrumbs">
+        <div class="chapter-num">10</div>
+        <h3>Breadcrumbs</h3>
+        <p class="tagline">"Hansel and Gretel invented UX before UX existed"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>A trail showing people where they are within a site's structure, letting them jump back to any earlier point.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Milestones on a highway telling you exactly how far you are from your destination, and what came before.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M12 20 L34 40 L14 55 L40 70 L22 88" stroke="#BD5B3B" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="50" r="6" fill="#4C5FAB"/><line x1="24" y1="50" x2="42" y2="50" stroke="#4C5FAB" stroke-width="3"/><circle cx="48" cy="50" r="6" fill="#4C5FAB"/><line x1="54" y1="50" x2="72" y2="50" stroke="#4C5FAB" stroke-width="3"/><circle cx="78" cy="50" r="6" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A shopping site nested five categories deep with no way back except mashing the browser's back button five times.</span>
+          <span class="tag good"><span class="icon">✓</span> "Electronics > Mobiles > Smartphones > Samsung" sitting at the top, one tap to jump anywhere.</span>
+        </div>
+        <div class="rule">Never make someone guess how they got lost.</div>
+      </article>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="chapter-section" id="section-3">
+      <div class="section-header">
+        <svg class="section-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A shield with a checkmark, meaning safe and protected">
+          <path d="M50 8 L84 22 V50 C84 72 68 88 50 94 C32 88 16 72 16 50 V22 Z" fill="var(--indigo-tint)" stroke="var(--indigo)" stroke-width="4"/>
+          <path d="M34 50 L46 62 L68 36" fill="none" stroke="var(--moss)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="section-text">
+          <span class="eyebrow">Section 3</span>
+          <h2>Don't Scare Me</h2>
+        </div>
+      </div>
+      <article class="chapter" id="ch-error-prevention">
+        <div class="chapter-num">11</div>
+        <h3>Error Prevention</h3>
+        <p class="tagline">"Stopping the crime before it happens, unlike your bank's OTP system"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Better to design so mistakes can't happen at all, rather than showing an error message after the fact.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A gas stove knob that needs a push-and-turn motion, so a stray bump doesn't accidentally turn on the gas.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="40" width="30" height="20" rx="5" fill="#BD5B3B"/><rect x="55" y="40" width="30" height="20" rx="5" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="40" width="30" height="20" rx="5" fill="#E9EBF7"/><rect x="55" y="40" width="30" height="20" rx="5" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> "Delete Account" sitting right next to "Save Changes," same size, same color, one careless tap away.</span>
+          <span class="tag good"><span class="icon">✓</span> A grayed-out "Submit" button until every required field is actually filled in correctly.</span>
+        </div>
+        <div class="rule">The best error message is the one that never had to be shown.</div>
+      </article>
+
+      <article class="chapter" id="ch-undo">
+        <div class="chapter-num">12</div>
+        <h3>Undo Over Confirm</h3>
+        <p class="tagline">"'Are you sure?' has never once made anyone more sure"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Instead of interrupting people with a confirmation dialog before an action, let it happen and offer an easy way to undo it.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Elevator doors that reopen if you press the button again, rather than making you confirm "close doors?" every time.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="20" width="46" height="26" rx="5" fill="none" stroke="#BD5B3B" stroke-width="3"/><rect x="24" y="30" width="46" height="26" rx="5" fill="none" stroke="#BD5B3B" stroke-width="3"/><rect x="18" y="40" width="46" height="26" rx="5" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="14" y="42" width="72" height="22" rx="11" fill="#4C5FAB"/><path d="M55 48 A8 8 0 1 1 50 60" fill="none" stroke="#fff" stroke-width="3"/><path d="M50 44 L50 51 L57 51" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A pop-up asking "Are you sure?" for every single photo, until you click "Yes" on autopilot without reading it.</span>
+          <span class="tag good"><span class="icon">✓</span> Gmail's "Message sent. Undo?" toast that stays for five seconds after you hit send.</span>
+        </div>
+        <div class="rule">A confirmation dialog trains people to stop reading confirmation dialogs.</div>
+      </article>
+
+      <article class="chapter" id="ch-forgiving-format">
+        <div class="chapter-num">13</div>
+        <h3>Forgiving Format</h3>
+        <p class="tagline">"Let me type my phone number the way I want, I beg you"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Accept input in whatever reasonable format someone naturally provides it in, instead of demanding one rigid structure.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A shopkeeper accepting a slightly torn, faded currency note without making you go find a fresh one.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="38" width="64" height="24" rx="4" fill="none" stroke="#BD5B3B" stroke-width="3"/><line x1="60" y1="42" x2="72" y2="58" stroke="#BD5B3B" stroke-width="4" stroke-linecap="round"/><line x1="72" y1="42" x2="60" y2="58" stroke="#BD5B3B" stroke-width="4" stroke-linecap="round"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="38" width="64" height="24" rx="4" fill="none" stroke="#4C5FAB" stroke-width="3"/><path d="M60 50 L67 58 L78 42" fill="none" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A form rejecting your phone number because you typed spaces instead of dashes, with no explanation why.</span>
+          <span class="tag good"><span class="icon">✓</span> Google Maps accepting a messy, half-transliterated address and still finding the place.</span>
+        </div>
+        <div class="rule">Fix the input yourself before you blame the person for typing it "wrong."</div>
+      </article>
+
+      <article class="chapter" id="ch-graceful-degradation">
+        <div class="chapter-num">14</div>
+        <h3>Graceful Degradation</h3>
+        <p class="tagline">"When WiFi dies, at least let me still read my email"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>When something fails or a condition isn't ideal, the experience should degrade gently rather than break completely.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A generator kicking in during a power cut so the fan still runs, just slower, instead of the whole house going dark.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="18" width="64" height="64" rx="6" fill="none" stroke="#BD5B3B" stroke-width="3"/><path d="M30 30 L45 50 L35 55 L50 75 L48 58 L60 62 Z" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="18" width="64" height="64" rx="6" fill="#E9EBF7" stroke="#4C5FAB" stroke-width="3" opacity="0.9"/><line x1="34" y1="50" x2="66" y2="50" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> An app showing a completely blank white screen the moment your internet blips, with zero indication of what happened.</span>
+          <span class="tag good"><span class="icon">✓</span> Google Docs letting you keep typing offline and quietly syncing once you're back online.</span>
+        </div>
+        <div class="rule">A broken experience should bend, not shatter.</div>
+      </article>
+
+      <article class="chapter" id="ch-confirmation-feedback">
+        <div class="chapter-num">15</div>
+        <h3>Confirmation Feedback</h3>
+        <p class="tagline">"Did my payment go through or did my money just vanish into the void?"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Every action someone takes should get a clear, immediate signal that it was received and what happened next.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A temple bell giving an immediate, satisfying sound the moment you ring it, confirming your action landed.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="26" fill="none" stroke="#BD5B3B" stroke-width="6" stroke-dasharray="14 10"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="26" fill="#4C5FAB"/><path d="M38 50 L47 60 L64 38" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> Pressing "Pay Now" and staring at a frozen screen with no spinner, no message, just silence.</span>
+          <span class="tag good"><span class="icon">✓</span> A UPI app showing an instant green checkmark: "₹500 sent to Ravi," the moment it processes.</span>
+        </div>
+        <div class="rule">Silence after an action is the loudest way to lose someone's trust.</div>
+      </article>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section class="chapter-section" id="section-4">
+      <div class="section-header">
+        <svg class="section-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A phone with a fishing hook curling out of it, meaning you're hooked">
+          <rect x="34" y="30" width="32" height="56" rx="6" fill="none" stroke="var(--indigo)" stroke-width="4"/>
+          <circle cx="50" cy="78" r="3" fill="var(--indigo)"/>
+          <path d="M50 30 C50 12 74 10 74 28 C74 40 60 40 60 30" fill="none" stroke="var(--clay)" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="60" cy="30" r="4" fill="var(--clay)"/>
+        </svg>
+        <div class="section-text">
+          <span class="eyebrow">Section 4</span>
+          <h2>Keep Me Hooked</h2>
+        </div>
+      </div>
+      <article class="chapter" id="ch-zeigarnik">
+        <div class="chapter-num">16</div>
+        <h3>Zeigarnik Effect</h3>
+        <p class="tagline">"That progress bar at 94% is legally a form of psychological warfare"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>People remember and feel compelled to finish unfinished tasks far more than completed ones. An open loop nags at the brain until it's closed.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Someone starts a sentence, then says "actually, never mind." You'll think about that unfinished sentence for the rest of the day.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="28" fill="none" stroke="#BD5B3B" stroke-width="7"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="28" fill="none" stroke="#E9EBF7" stroke-width="7"/><path d="M50 22 A28 28 0 1 1 27 68" fill="none" stroke="#4C5FAB" stroke-width="7" stroke-linecap="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> LinkedIn's "Your profile is 85% complete" nudge, showing up every login for three years straight.</span>
+          <span class="tag good"><span class="icon">✓</span> Duolingo's lesson progress bar — filling it in feels so close to done, you do one more exercise. Then one more.</span>
+        </div>
+        <div class="rule">An almost-finished bar is more powerful than a finished one. People chase "almost," not "already."</div>
+      </article>
+
+      <article class="chapter" id="ch-variable-rewards">
+        <div class="chapter-num">17</div>
+        <h3>Variable Rewards</h3>
+        <p class="tagline">"Why you check Instagram 47 times a day and don't know why"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Unpredictable rewards create a stronger urge to keep checking than a reward that's always the same size or arrives on schedule.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A fishing rod — you never know if the next cast lands a fish, and that uncertainty is exactly why you keep casting.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="30" width="40" height="40" rx="6" fill="none" stroke="#BD5B3B" stroke-width="4"/><circle cx="32" cy="50" r="6" fill="#BD5B3B"/><circle cx="48" cy="50" r="6" fill="#BD5B3B"/><line x1="66" y1="30" x2="80" y2="18" stroke="#BD5B3B" stroke-width="5" stroke-linecap="round"/><circle cx="80" cy="18" r="5" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M30 40 A20 20 0 1 1 28 60" fill="none" stroke="#4C5FAB" stroke-width="6" stroke-linecap="round"/><path d="M22 58 L28 68 L36 56" fill="none" stroke="#4C5FAB" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A slot machine engineered so wins arrive just often enough to keep you pulling the lever.</span>
+          <span class="tag good"><span class="icon">✓</span> A pull-to-refresh feed where sometimes there's something new — same mechanic, but you're in control of when you check.</span>
+        </div>
+        <div class="rule">Uncertainty is the strongest hook in design — use it to delight, not to trap.</div>
+      </article>
+
+      <article class="chapter" id="ch-gamification">
+        <div class="chapter-num">18</div>
+        <h3>Gamification</h3>
+        <p class="tagline">"Duolingo's owl has ruined more friendships than money ever did"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Applying game mechanics — points, badges, levels, streaks — to a non-game experience to increase motivation and engagement.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A punch card at your local juice shop — "buy 9, get the 10th free" turns a routine purchase into a mini quest.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="10" fill="#BD5B3B"/><circle cx="60" cy="24" r="8" fill="#BD5B3B"/><circle cx="78" cy="42" r="9" fill="#BD5B3B"/><circle cx="34" cy="58" r="7" fill="#BD5B3B"/><circle cx="60" cy="60" r="10" fill="#BD5B3B"/><circle cx="20" cy="75" r="6" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 20 C34 40 34 55 50 82 C66 55 66 40 50 20 Z" fill="#4C5FAB"/><path d="M50 40 C43 50 43 58 50 70 C57 58 57 50 50 40 Z" fill="#E9EBF7"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A fitness app plastering badges for absolutely everything, until "badge" stops meaning anything at all.</span>
+          <span class="tag good"><span class="icon">✓</span> Duolingo's streak counter, tapping into loss aversion and habit at once to keep people practicing daily.</span>
+        </div>
+        <div class="rule">A badge only motivates if earning it actually meant something.</div>
+      </article>
+
+      <article class="chapter" id="ch-peak-end">
+        <div class="chapter-num">19</div>
+        <h3>Peak-End Rule</h3>
+        <p class="tagline">"You'll forgive a bad flight if the landing feels smooth"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>People judge an entire experience mostly by its most intense moment and how it ended — not by the average of every moment.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A wedding with one chaotic hour in the middle is still remembered as "beautiful" if the final toast felt warm.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="28" fill="#BD5B3B"/><circle cx="40" cy="44" r="3.5" fill="#fff"/><circle cx="60" cy="44" r="3.5" fill="#fff"/><path d="M38 66 Q50 56 62 66" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="52" r="28" fill="#4C5FAB"/><circle cx="40" cy="46" r="3.5" fill="#fff"/><circle cx="60" cy="46" r="3.5" fill="#fff"/><path d="M38 60 Q50 72 62 60" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M50 16 C46 22 46 27 50 33 C54 27 54 22 50 16 Z" fill="#BD5B3B"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A smooth food delivery experience that ends with a spilled curry at unboxing — that's the memory that sticks.</span>
+          <span class="tag good"><span class="icon">✓</span> Airbnb sending a warm, personal thank-you with local tips right as your stay ends, closing on a high note.</span>
+        </div>
+        <div class="rule">Design the ending like it's the only part anyone will remember. It usually is.</div>
+      </article>
+
+      <article class="chapter" id="ch-streaks">
+        <div class="chapter-num">20</div>
+        <h3>Streaks & Habits</h3>
+        <p class="tagline">"The reason you're afraid to skip a day on that fitness app"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Visible, cumulative counters that track consecutive days of an activity, leveraging loss aversion to build daily habits.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Not wanting to be the one who breaks a family tradition kept alive for 20 years — the streak itself becomes the motivator.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><ellipse cx="32" cy="42" rx="14" ry="9" fill="none" stroke="#BD5B3B" stroke-width="5" transform="rotate(-20 32 42)"/><ellipse cx="60" cy="58" rx="14" ry="9" fill="none" stroke="#BD5B3B" stroke-width="5" transform="rotate(-20 60 58)"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 18 C40 34 40 46 50 62 C60 46 60 34 50 18 Z" fill="#4C5FAB"/><path d="M50 34 C45 42 45 48 50 58 C55 48 55 42 50 34 Z" fill="#E9EBF7"/><path d="M28 70 L40 58 L46 66 L58 52 L72 68" fill="none" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A streak system so punishing that missing one day for a hospital visit resets months of progress with zero mercy.</span>
+          <span class="tag good"><span class="icon">✓</span> A one-time "streak freeze," acknowledging real life happens without fully breaking the habit loop.</span>
+        </div>
+        <div class="rule">A streak should motivate consistency, not punish humanity.</div>
+      </article>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section class="chapter-section" id="section-5">
+      <div class="section-header">
+        <svg class="section-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two interlocking shapes with a checkmark badge, meaning trust confirmed">
+          <polygon points="15,35 55,35 45,65 5,65" fill="var(--indigo)" opacity="0.85"/>
+          <polygon points="45,35 85,35 75,65 35,65" fill="var(--moss)" opacity="0.85"/>
+          <circle cx="50" cy="80" r="14" fill="var(--paper)" stroke="var(--moss-deep)" stroke-width="3"/>
+          <path d="M43 80 L48 86 L58 74" fill="none" stroke="var(--moss-deep)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="section-text">
+          <span class="eyebrow">Section 5</span>
+          <h2>Make Me Trust You</h2>
+        </div>
+      </div>
+      <article class="chapter" id="ch-social-proof">
+        <div class="chapter-num">21</div>
+        <h3>Social Proof</h3>
+        <p class="tagline">"'500 people bought this in the last hour' — sure, Jan"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>People look to others' behavior to decide what's correct or desirable, especially when they're uncertain.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>You pick the roadside food stall with the longer queue over the empty one right next to it, assuming the crowd knows something you don't.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="24" fill="none" stroke="#BD5B3B" stroke-width="4"/><circle cx="72" cy="30" r="12" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="20,55 26,40 32,55 48,55 35,64 40,80 26,70 12,80 17,64 4,55" fill="#4C5FAB"/><polygon points="50,55 56,40 62,55 78,55 65,64 70,80 56,70 42,80 47,64 34,55" fill="#4C5FAB"/><polygon points="80,50 84,40 88,50 98,50 90,56 93,66 84,60 75,66 78,56 70,50" fill="#E9EBF7"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A website showing "12 people are viewing this right now" that displays the exact same number every time you refresh.</span>
+          <span class="tag good"><span class="icon">✓</span> Genuine verified-purchase reviews with real photos from real buyers.</span>
+        </div>
+        <div class="rule">Borrowed trust only works if it's actually earned, not manufactured.</div>
+      </article>
+
+      <article class="chapter" id="ch-scarcity">
+        <div class="chapter-num">22</div>
+        <h3>Scarcity Principle</h3>
+        <p class="tagline">"'Only 2 left!' — a lie that has worked since the dawn of shopping"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>People want things more when they believe there's less of it available. Limited supply — real or implied — creates urgency.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Your local sabzi wala says "last batch of mangoes, price doubles tomorrow." You didn't even want mangoes ten minutes ago.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="20,20 55,20 78,45 55,80 20,80" fill="#BD5B3B"/><circle cx="30" cy="30" r="5" fill="#fff"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="28" fill="none" stroke="#4C5FAB" stroke-width="4"/><line x1="50" y1="50" x2="50" y2="30" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round"/><line x1="50" y1="50" x2="66" y2="58" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A hotel site showing "Only 1 room left!" on the same listing for the past 8 months.</span>
+          <span class="tag good"><span class="icon">✓</span> A flight app showing "3 seats left at this price" — when it's genuinely true and the price actually jumps tomorrow.</span>
+        </div>
+        <div class="rule">Scarcity works once. Fake scarcity works until people notice — and then they never trust you again.</div>
+      </article>
+
+      <article class="chapter" id="ch-anchoring">
+        <div class="chapter-num">23</div>
+        <h3>Anchoring</h3>
+        <p class="tagline">"Why ₹999 feels like a steal next to a crossed-out ₹2999"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>The first number a person sees becomes a reference point that skews how they judge every number after it.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A shopkeeper quotes double the real price first, so the "discounted" price still nets him a healthy profit and you a feeling of victory.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="15,30 65,30 80,50 65,70 15,70" fill="#BD5B3B"/><line x1="15" y1="70" x2="80" y2="30" stroke="#fff" stroke-width="4"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="8,35 40,35 50,50 40,65 8,65" fill="#E9EBF7"/><line x1="8" y1="65" x2="50" y2="35" stroke="#8A3F27" stroke-width="3"/><polygon points="55,35 87,35 97,50 87,65 55,65" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A pricing page listing an absurd "Enterprise" tier just to make the middle tier look reasonable by comparison.</span>
+          <span class="tag good"><span class="icon">✓</span> An honest before/after price reflecting genuine seasonal discount history.</span>
+        </div>
+        <div class="rule">The first number sets the frame. Make sure the frame is honest.</div>
+      </article>
+
+      <article class="chapter" id="ch-default-bias">
+        <div class="chapter-num">24</div>
+        <h3>Default Bias</h3>
+        <p class="tagline">"You never changed that setting because, well, why would you"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>People overwhelmingly stick with whatever option is pre-selected, because changing it takes effort and implies risk.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Most people keep their phone's default ringtone forever — not because they love it, but because changing it never felt worth the trip to settings.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="40" width="16" height="16" rx="3" fill="none" stroke="#BD5B3B" stroke-width="3"/><path d="M38 48 L43 53 L49 43" fill="none" stroke="#BD5B3B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="42" width="60" height="24" rx="12" fill="#4C5FAB"/><circle cx="62" cy="54" r="9" fill="#fff"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A newsletter signup pre-checked by default, buried in tiny text at the bottom of a form.</span>
+          <span class="tag good"><span class="icon">✓</span> Retirement plans that auto-enroll employees by default, with an easy opt-out, dramatically increasing how many actually save.</span>
+        </div>
+        <div class="rule">Whatever you set as default is what most people will live with — choose it like it matters, because it does.</div>
+      </article>
+
+      <article class="chapter" id="ch-loss-aversion">
+        <div class="chapter-num">25</div>
+        <h3>Loss Aversion</h3>
+        <p class="tagline">"'You'll lose your progress' scares people more than any reward ever could"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>The pain of losing something is psychologically about twice as powerful as the pleasure of gaining something equivalent.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>You'll fight harder to keep a seat you already have on a train than you would to get an empty one across the aisle.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,16 88,80 12,80" fill="none" stroke="#BD5B3B" stroke-width="4" stroke-linejoin="round"/><line x1="50" y1="42" x2="50" y2="60" stroke="#BD5B3B" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="70" r="2.5" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M22 40 H78 L72 76 H28 Z" fill="none" stroke="#4C5FAB" stroke-width="4" stroke-linejoin="round"/><path d="M36 40 V30 A14 14 0 0 1 64 30 V40" fill="none" stroke="#4C5FAB" stroke-width="4"/><path d="M40 54 L47 62 L62 46" fill="none" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> An app guilt-tripping with "You'll lose your 47-day streak!" every time you try to log out.</span>
+          <span class="tag good"><span class="icon">✓</span> A shopping cart reminder saying "Your items are still saved" rather than a manipulative countdown timer.</span>
+        </div>
+        <div class="rule">Reminding people what they'll lose is powerful. Using it to manipulate instead of inform crosses a line.</div>
+      </article>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section class="chapter-section" id="section-6">
+      <div class="section-header">
+        <svg class="section-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A speech bubble with a heart inside, meaning emotional connection">
+          <path d="M10 20 H90 V65 H45 L30 82 V65 H10 Z" fill="var(--indigo-tint)" stroke="var(--indigo)" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M50 52 C50 40 34 40 34 50 C34 58 50 66 50 66 C50 66 66 58 66 50 C66 40 50 40 50 52 Z" fill="var(--clay)"/>
+        </svg>
+        <div class="section-text">
+          <span class="eyebrow">Section 6</span>
+          <h2>Make Me Feel Something</h2>
+        </div>
+      </div>
+      <article class="chapter" id="ch-empty-states">
+        <div class="chapter-num">26</div>
+        <h3>Empty States</h3>
+        <p class="tagline">"That sad little illustration when your inbox is empty isn't random, it's strategy"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>The screen someone sees when there's no data yet — designed to explain what's missing and invite an action, not just show blank space.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A brand-new notebook's first blank page doesn't feel sad, it feels like an invitation to start writing.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="15" width="70" height="70" rx="6" fill="none" stroke="#BD5B3B" stroke-width="3"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="15" width="70" height="70" rx="6" fill="#E9EBF7"/><circle cx="50" cy="42" r="14" fill="#4C5FAB"/><circle cx="45" cy="38" r="2.5" fill="#fff"/><circle cx="55" cy="38" r="2.5" fill="#fff"/><path d="M43 46 Q50 52 57 46" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><line x1="50" y1="64" x2="50" y2="76" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round"/><line x1="44" y1="70" x2="56" y2="70" stroke="#4C5FAB" stroke-width="4" stroke-linecap="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A to-do app showing a literal blank white rectangle with zero explanation when you have no tasks yet.</span>
+          <span class="tag good"><span class="icon">✓</span> Slack's empty channel showing a friendly illustration and "Say hello to #general."</span>
+        </div>
+        <div class="rule">An empty screen should feel like an invitation, not an error.</div>
+      </article>
+
+      <article class="chapter" id="ch-skeleton-screens">
+        <div class="chapter-num">27</div>
+        <h3>Skeleton Screens</h3>
+        <p class="tagline">"Fake loading bars exist because a blank screen makes you rage-quit"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Showing a grey placeholder outline of content that's about to load, instead of a blank white screen or spinner.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>Seeing the outline of a building under construction tells you something's coming, versus staring at an empty plot wondering if anyone's building there.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="15" width="70" height="70" rx="6" fill="none" stroke="#BD5B3B" stroke-width="3"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="15" width="70" height="70" rx="6" fill="none" stroke="#4C5FAB" stroke-width="3"/><rect x="26" y="32" width="48" height="8" rx="4" fill="#E9EBF7"/><rect x="26" y="48" width="48" height="8" rx="4" fill="#E9EBF7"/><rect x="26" y="64" width="30" height="8" rx="4" fill="#E9EBF7"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A news app showing pure white for 4 seconds with zero feedback, so you assume it's frozen.</span>
+          <span class="tag good"><span class="icon">✓</span> LinkedIn's grey placeholder cards mimicking the shape of posts about to appear, making the wait feel shorter.</span>
+        </div>
+        <div class="rule">People don't mind waiting. They mind not knowing if waiting will even help.</div>
+      </article>
+
+      <article class="chapter" id="ch-microinteractions">
+        <div class="chapter-num">28</div>
+        <h3>Microinteractions</h3>
+        <p class="tagline">"That little heart animation when you double-tap? Someone got paid to make that delightful"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>The small, single-purpose animations and feedback moments — a like button bouncing, a toggle sliding — that make an interface feel alive.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A temple bell's little swing and chime after you ring it — small, but it confirms your action landed.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 30 C46 22 34 22 34 34 C34 44 50 56 50 56 C50 56 66 44 66 34 C66 22 54 22 50 30 Z" fill="none" stroke="#BD5B3B" stroke-width="4"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="42" r="30" fill="none" stroke="#E9EBF7" stroke-width="3"/><circle cx="50" cy="42" r="20" fill="none" stroke="#E9EBF7" stroke-width="3"/><path d="M50 32 C46 24 34 24 34 36 C34 46 50 58 50 58 C50 58 66 46 66 36 C66 24 54 24 50 32 Z" fill="#4C5FAB"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A "like" button that silently changes color with no animation, so it's unclear if the tap even registered.</span>
+          <span class="tag good"><span class="icon">✓</span> Instagram's heart burst on double-tap — pure function wrapped in pure delight.</span>
+        </div>
+        <div class="rule">The small moments are where a product's personality actually lives.</div>
+      </article>
+
+      <article class="chapter" id="ch-system-status">
+        <div class="chapter-num">29</div>
+        <h3>System Status Visibility</h3>
+        <p class="tagline">"The spinning wheel of 'is this even working?'"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>The system should always keep people informed about what's happening, through appropriate feedback within a reasonable time.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A kitchen order token number lighting up on a display board, so you always know exactly where your order stands.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="26" fill="none" stroke="#BD5B3B" stroke-width="6" stroke-dasharray="10 8"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="55" r="9" fill="#E9EBF7"/><path d="M20 55 L23 58 L29 51" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="55" r="9" fill="#4C5FAB" opacity="0.6"/><path d="M46 55 L49 58 L55 51" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="76" cy="55" r="9" fill="#4C5FAB"/><path d="M72 55 L75 58 L81 51" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> A file upload with no progress bar, no percentage — just a static screen that might be done or might have crashed.</span>
+          <span class="tag good"><span class="icon">✓</span> WhatsApp's single tick, double tick, and blue tick, telling you exactly what stage your message is at.</span>
+        </div>
+        <div class="rule">Never make someone wonder if the system even heard them.</div>
+      </article>
+
+      <article class="chapter" id="ch-delight">
+        <div class="chapter-num">30</div>
+        <h3>Delight & Surprise</h3>
+        <p class="tagline">"Why does Slack's confetti make you feel things about a work app?"</p>
+        <div class="block"><span class="block-label">What it actually is</span><p>Small, unexpected moments of joy placed deliberately in an otherwise functional experience, creating an emotional connection beyond pure utility.</p></div>
+        <div class="block"><span class="block-label">Real life version</span><p>A shopkeeper slipping in one extra piece of candy after you pay, unasked — that one extra gesture is what you remember.</p></div>
+        <div class="visual-row">
+          <div class="visual-panel bad"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,10 58,38 88,38 63,55 72,84 50,66 28,84 37,55 12,38 42,38" fill="#BD5B3B"/></svg><span class="visual-caption">Bad</span></div>
+          <div class="visual-panel good"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="20" width="9" height="9" fill="#4C5FAB" transform="rotate(20 22 24)"/><circle cx="50" cy="16" r="5" fill="#E9EBF7"/><rect x="74" y="26" width="9" height="9" fill="#4C5FAB" transform="rotate(-15 78 30)"/><circle cx="26" cy="60" r="5" fill="#4C5FAB"/><rect x="60" y="62" width="9" height="9" fill="#E9EBF7" transform="rotate(35 64 66)"/><circle cx="70" cy="80" r="5" fill="#4C5FAB"/><circle cx="50" cy="50" r="6" fill="#E9EBF7"/></svg><span class="visual-caption">Good</span></div>
+        </div>
+        <div class="tag-row">
+          <span class="tag bad"><span class="icon">✕</span> An app playing a full-screen animation every single time you complete the most routine task, turning charm into an obstacle.</span>
+          <span class="tag good"><span class="icon">✓</span> Slack's confetti the first time your team hits a milestone — rare enough to still feel special.</span>
+        </div>
+        <div class="rule">Delight works because it's occasional. Overuse it, and delight becomes just another loading screen.</div>
+      </article>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  © 2026 <a href="index.html">Think Design School</a> · Made with ♥ for the design community
+</footer>
+
+<script>
+  // Scrollspy: highlight current chapter in sidebar
+  const chapters = document.querySelectorAll('.chapter, .chapter.placeholder');
+  const tocItems = document.querySelectorAll('.toc-item');
+  const map = {};
+  tocItems.forEach(item => {
+    const id = item.getAttribute('href').replace('#','');
+    map[id] = item;
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      if (map[id]) {
+        if (entry.isIntersecting) {
+          tocItems.forEach(i => i.classList.remove('active'));
+          map[id].classList.add('active');
+        }
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+  chapters.forEach(ch => observer.observe(ch));
+
+  // Close mobile TOC after clicking a link
+  tocItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const toc = document.querySelector('.toc');
+      if (window.innerWidth <= 860) toc.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
