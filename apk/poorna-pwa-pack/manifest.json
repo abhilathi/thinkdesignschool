@@ -3,10 +3,10 @@
   "dir": "ltr",
   "display": "standalone",
   "name": "Poorna — Financial Plan",
-  "orientation": "any",
-  "scope": "/",
+  "orientation": "portrait",
+  "scope": "https://thinkdesignschool.com/apk/poorna-pwa-pack/index.html",
   "short_name": "Poorna",
-  "start_url": "https://thinkdesignschool.com/apk/poorna-pwa-pack/",
+  "start_url": "https://thinkdesignschool.com/apk/poorna-pwa-pack/index.html",
   "theme_color": "#12312B",
   "icons": [
     {
@@ -29,5 +29,9 @@
     }
   ],
   "id": "/",
-  "description": "A guided Q&amp;amp;A that builds your personal financial plan and PDF report."
+  "description": "A guided Q&amp;amp;amp;A that builds your personal financial plan and PDF report.",
+  "lang": "en",
+  "categories": [
+    "finance"
+  ]
 }
