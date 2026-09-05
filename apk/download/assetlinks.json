@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.thinkdesignschool.twa",
+        "sha256_cert_fingerprints": ["88:04:D4:5D:57:6C:9B:3C:19:1D:D6:4C:B8:FA:EC:CC:62:EB:83:0E:63:C5:EB:F2:90:59:6C:AF:6E:A4:F8:D9"]
+      }
+    }]
