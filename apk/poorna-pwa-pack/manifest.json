@@ -10,24 +10,24 @@
   "theme_color": "#12312B",
   "icons": [
     {
-      "src": "https://thinkdesignschool.com/apk/icon-192.png",
+      "src": "https://thinkdesignschool.com/apk/poorna-pwa-pack/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://thinkdesignschool.com/apk/icon-512.png",
+      "src": "https://thinkdesignschool.com/apk/poorna-pwa-pack/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://thinkdesignschool.com/apk/icon-512-maskable.png",
+      "src": "https://thinkdesignschool.com/apk/poorna-pwa-pack/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
   ],
   "id": "/",
-  "description": "A guided Q&amp;A that builds your personal financial plan and PDF report."
+  "description": "A guided Q&amp;amp;A that builds your personal financial plan and PDF report."
 }
