@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "com.thinkdesignschool.twa",
-        "sha256_cert_fingerprints": ["64:0D:C2:FB:73:21:4D:45:82:BE:6A:4A:BA:B8:E4:BD:B2:AD:44:4C:3C:3C:63:16:08:E7:5B:0E:35:BC:DB:BB"]
+        "sha256_cert_fingerprints": ["1E:F4:23:9F:02:DF:77:25:B6:26:C8:4D:18:A0:9A:71:84:32:B5:94:3B:17:9C:4C:EB:7E:0C:D0:12:EF:20:A6"]
       }
     }]
