@@ -277,9 +277,8 @@ const RISK_PROFILES = {
 };
 
 const EQUITY_RATE = 0.09, DEBT_RATE = 0.06;
-const INCOME_GROWTH = 0.06; // assumed annual salary growth, used only in the illustrative cash-flow annexure
+const INCOME_GROWTH = 0.06;
 
-// Representative planning defaults per country. "general" also covers retirement inflation.
 const COUNTRY_INFLATION = {
   "India":                { general:0.055, education:0.08,  auto:0.06,  construction:0.06,  wedding:0.055 },
   "United States":        { general:0.03,  education:0.05,  auto:0.03,  construction:0.04,  wedding:0.03  },
@@ -385,6 +384,11 @@ function renderProgress(){
 
 function go(delta){
   current = Math.max(0, Math.min(steps.length-1, current+delta));
+  render();
+}
+
+function goToHome(){
+  current = 0;
   render();
 }
 
@@ -545,6 +549,24 @@ function stepIncome(){
   return wrap;
 }
 
+function getPreviousMonthTarget(){
+  const now = new Date();
+  let targetMonth = now.getMonth(); // 0-indexed (0 = Jan, 7 = Aug)
+  let targetYear = now.getFullYear();
+  if(targetMonth === 0){
+    targetMonth = 12;
+    targetYear -= 1;
+  }
+  const monthNames = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+  return {
+    monthNum: targetMonth, // 1 to 12
+    monthStr: String(targetMonth).padStart(2,'0'),
+    monthName: monthNames[targetMonth - 1],
+    year: targetYear,
+    yearShort: String(targetYear).slice(-2)
+  };
+}
+
 function parseExpensesFromSMS(text){
   const CATS = {
     household:["swiggy","zomato","grocery","supermarket","bigbasket","d-mart","dmart","more retail","reliance fresh","milk","kirana"],
@@ -557,11 +579,19 @@ function parseExpensesFromSMS(text){
   const debitWords = /debited|spent|paid|withdrawn|purchase|txn of|has been used/i;
   const creditWords = /credited|received|refund|reversed|cashback/i;
   const amountRe = /(?:rs\.?|inr)\s*([\d,]+(?:\.\d{1,2})?)/i;
+  
+  const target = getPreviousMonthTarget();
   let matched = 0;
+
   text.split(/\r?\n+/).forEach(line=>{
     if(!line.trim()) return;
     if(creditWords.test(line) && !debitWords.test(line)) return;
     if(!debitWords.test(line)) return;
+
+    // Strict prior-month date check (e.g. DD-08-26, DD/08/2026, or "DD Aug")
+    const dateRe = new RegExp(`(?:\\b\\d{1,2}[-\\/]${target.monthStr}[-\\/](?:${target.year}|${target.yearShort})\\b)|(?:\\b\\d{1,2}\\s+${target.monthName}\\b)`,'i');
+    if(!dateRe.test(line)) return;
+
     const am = line.match(amountRe);
     if(!am) return;
     const amount = parseFloat(am[1].replace(/,/g,''));
@@ -574,14 +604,10 @@ function parseExpensesFromSMS(text){
     sums[cat]+=amount;
     matched++;
   });
-  return {sums, matched};
+  return {sums, matched, target};
 }
 
 function requestSmsAccess(){
-  // A native Android shell (Capacitor / WebView with addJavascriptInterface) can inject
-  // window.AndroidBridge.getBankSMS() returning a JSON array of message bodies after the
-  // user grants READ_SMS at the OS level. A browser has no equivalent API, so we
-  // feature-detect rather than fake it.
   if(window.AndroidBridge && typeof window.AndroidBridge.getBankSMS === 'function'){
     try{
       const raw = window.AndroidBridge.getBankSMS();
@@ -593,20 +619,20 @@ function requestSmsAccess(){
   return { supported:false, messages:[] };
 }
 
-function generateDemoSMS(count=18){
+function generateDemoSMS(count=24){
   const rnd=(a,b)=>Math.floor(a+Math.random()*(b-a));
   const day=()=>1+Math.floor(Math.random()*28);
+  const target = getPreviousMonthTarget();
+  const dateStr = `${day().toString().padStart(2,'0')}-${target.monthStr}-${target.yearShort}`;
   const templates = [
-    ()=>`Rs.${rnd(100,600)}.00 debited from A/c XX1234 for UPI txn to SWIGGY on ${day()}-09-26`,
-    ()=>`Rs.${rnd(200,1500)} spent on HDFC Bank Card at AMAZON on ${day()}-09-26`,
-    ()=>`Rs.${rnd(300,900)} debited for FASTAG recharge`,
-    ()=>`Rs.${rnd(400,2500)} debited for UPI txn to BIGBASKET`,
-    ()=>`Rs.${rnd(150,700)} debited towards fuel at INDIAN OIL PETROL PUMP`,
-    ()=>`Rs.${rnd(500,3000)} debited for purchase at MYNTRA`,
-    ()=>`Rs.${rnd(300,2000)} debited for payment to APOLLO PHARMACY`,
-    ()=>`Rs.${rnd(1000,5000)} debited for SCHOOL FEE PAYMENT`,
-    ()=>`Rs.${rnd(200,900)} debited for UPI txn to ZOMATO`,
-    ()=>`Rs.${rnd(150,500)} debited for OLA ride payment`
+    ()=>`Rs.${rnd(100,600)}.00 debited from A/c XX1234 for UPI txn to SWIGGY on ${dateStr}`,
+    ()=>`Rs.${rnd(200,1500)} spent on HDFC Bank Card at AMAZON on ${dateStr}`,
+    ()=>`Rs.${rnd(300,900)} debited for FASTAG recharge on ${dateStr}`,
+    ()=>`Rs.${rnd(400,2500)} debited for UPI txn to BIGBASKET on ${dateStr}`,
+    ()=>`Rs.${rnd(150,700)} debited towards fuel at INDIAN OIL PETROL PUMP on ${dateStr}`,
+    ()=>`Rs.${rnd(500,3000)} debited for purchase at MYNTRA on ${dateStr}`,
+    ()=>`Rs.${rnd(300,2000)} debited for payment to APOLLO PHARMACY on ${dateStr}`,
+    ()=>`Rs.${rnd(1000,5000)} debited for SCHOOL FEE PAYMENT on ${dateStr}`
   ];
   const out=[];
   for(let i=0;i<count;i++) out.push(templates[i%templates.length]());
@@ -615,9 +641,10 @@ function generateDemoSMS(count=18){
 
 function applyParsedMessages(messages, resultEl, wrap, e, label){
   const clean = messages.filter(m=>m && m.trim());
-  const {sums, matched} = parseExpensesFromSMS(clean.join('\n'));
+  const {sums, matched, target} = parseExpensesFromSMS(clean.join('\n'));
+  const monthLabel = target.monthName.toUpperCase() + ' ' + target.year;
   if(matched===0){
-    resultEl.textContent = "Couldn't find any recognisable debit messages in there.";
+    resultEl.textContent = `Couldn't find any debit messages for previous month (${monthLabel}).`;
     return;
   }
   Object.keys(sums).forEach(k=>{
@@ -625,7 +652,7 @@ function applyParsedMessages(messages, resultEl, wrap, e, label){
     const input = wrap.querySelector(`#e_${k}`);
     if(input) input.value = e[k];
   });
-  resultEl.innerHTML = `${label?label+': ':''}Added up ${matched} transaction${matched>1?'s':''} into the categories above — check the numbers and adjust anything that landed in the wrong bucket.`;
+  resultEl.innerHTML = `<b>${label?label+' ':''} (${monthLabel}):</b> Processed ${matched} transaction${matched>1?'s':''} from previous month into the categories above.`;
 }
 
 function stepExpenses(){
@@ -648,15 +675,18 @@ function stepExpenses(){
     wrap.querySelector(`#e_${key}`).oninput = ev=>e[key]=+ev.target.value||0;
   });
 
+  const target = getPreviousMonthTarget();
+  const targetLabel = target.monthName.toUpperCase() + ' ' + target.year;
+
   const smsBox = el(`
     <div style="margin-top:22px;border:1.5px dashed var(--primary);border-radius:13px;padding:14px;background:#F6FAF6;">
-      <div style="font-weight:700;font-size:13px;color:var(--primary-dark);">⚡ Auto-fill from bank SMS</div>
-      <p class="hint" style="margin:6px 0 10px;">On the packaged Android app, this reads your bank SMS directly and totals every transaction for you — nothing to type. This browser preview can't request that permission, so try the demo data below to see it work, or paste a few messages.</p>
-      <button class="add-btn" id="grantSmsBtn" style="background:var(--primary-dark);color:#fff;border:none;">📲 Grant SMS access</button>
-      <button class="add-btn" id="demoSmsBtn">▶ Try with demo SMS (preview)</button>
+      <div style="font-weight:700;font-size:13px;color:var(--primary-dark);">⚡ Auto-fill from bank SMS (Previous Month: ${targetLabel})</div>
+      <p class="hint" style="margin:6px 0 10px;">Reads your bank SMS to automatically sum expenses for the complete previous month (${targetLabel}).</p>
+      <button class="add-btn" id="grantSmsBtn" style="background:var(--primary-dark);color:#fff;border:none;">📲 Auto-read previous month (${targetLabel}) SMS</button>
+      <button class="add-btn" id="demoSmsBtn">▶ Try with demo SMS (${targetLabel})</button>
       <details style="margin-top:10px;">
         <summary style="font-size:12px;color:var(--muted);cursor:pointer;">Or paste a few messages manually</summary>
-        <textarea id="smsInput" rows="4" placeholder="e.g. Rs.499.00 debited from A/c XX1234 for UPI txn to SWIGGY on 02-09-26" style="width:100%;margin-top:8px;border:1.5px solid var(--border);border-radius:11px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:13px;resize:vertical;"></textarea>
+        <textarea id="smsInput" rows="4" placeholder="e.g. Rs.499.00 debited from A/c XX1234 for UPI txn to SWIGGY on 02-${target.monthStr}-${target.yearShort}" style="width:100%;margin-top:8px;border:1.5px solid var(--border);border-radius:11px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:13px;resize:vertical;"></textarea>
         <button class="add-btn" id="parseSmsBtn" style="margin-top:8px;">Parse pasted text</button>
       </details>
       <div id="smsResult" style="font-size:12px;color:var(--muted);margin-top:8px;"></div>
@@ -667,10 +697,10 @@ function stepExpenses(){
   smsBox.querySelector('#grantSmsBtn').onclick = ()=>{
     const {supported, messages} = requestSmsAccess();
     if(!supported){
-      resultEl.innerHTML = "This preview is running in a browser, which has no permission model for reading SMS — that only exists for native Android apps. Once this is packaged that way, this same button calls into the native permission prompt automatically. For now, try the demo data or paste a few messages.";
+      resultEl.innerHTML = "Browser environment detected. Native SMS reading operates inside packaged Android APK wrapper. Use demo SMS or paste text to test calculation.";
       return;
     }
-    if(!messages.length){ resultEl.textContent = "No bank SMS found, or access wasn't granted."; return; }
+    if(!messages.length){ resultEl.textContent = "No bank SMS found, or access was not granted."; return; }
     applyParsedMessages(messages, resultEl, wrap, e);
   };
   smsBox.querySelector('#demoSmsBtn').onclick = ()=>{
@@ -897,7 +927,6 @@ function computePlan(){
   const monthlyCommitted = totalExpenses + totalEMI + totalPremiums;
   const emergencyFund = 6 * monthlyCommitted;
 
-  // Goals
   const rate = blendedRate();
   const goals = state.goals.map(g=>{
     const infl = goalInflationRate(g.name);
@@ -908,8 +937,6 @@ function computePlan(){
     return {...g, corpus, sip, years};
   });
 
-  // Life insurance (expense replacement HLV)
-  const lifeExpForHLV = Math.max(p.retireAge - p.age, 1) + 15; // coverage horizon: working years + buffer
   const coverageHorizon = Math.max((state.retirement.lifeExpectancy||85) - p.age, 1);
   const annualLivingExp = totalExpenses*12;
   const hlvCoverage = pvGrowingAnnuity(annualLivingExp, DEBT_RATE, countryRates().general, coverageHorizon);
@@ -918,12 +945,10 @@ function computePlan(){
   const totalCoverageRequired = hlvCoverage + totalLiabilities + familyProtectGoals;
   const additionalLifeCoverNeeded = Math.max(0, totalCoverageRequired - state.insurance.lifeCover - totalInvestAssets);
 
-  // Health insurance
   const familySize = state.family.length + 1;
   const recommendedHealth = Math.max(2000000, 500000*familySize);
   const healthGap = Math.max(0, recommendedHealth - state.insurance.healthCover);
 
-  // Retirement
   const yearsToRetire = Math.max(p.retireAge - p.age, 0);
   const postRetireYears = Math.max((state.retirement.lifeExpectancy||85) - p.retireAge, 1);
   const annualExpenseToday = state.retirement.expenseToday*12;
@@ -934,11 +959,6 @@ function computePlan(){
   const retirementCorpus = Math.max(0, corpusGross - pvOtherIncome);
   const retirementSIP = sipRequired(retirementCorpus, rate, yearsToRetire);
 
-  // --- Smart Reschedule: auto-stagger goals so the monthly numbers actually work ---
-  // Retirement is funded first (non-negotiable). Whatever's left has to cover every
-  // goal's SIP. If it doesn't, push out the goal with the longest runway by a year
-  // at a time (max 5 extra years each) and recompute, rather than leaving the user
-  // to guess what to cut — this is the manual step a human planner did in the sample.
   const availableForGoals = Math.max(0, monthlySurplus - retirementSIP);
   function recomputeGoal(g){
     const infl = goalInflationRate(g.name);
@@ -963,7 +983,6 @@ function computePlan(){
   const goalShortfall = Math.max(0, totalGoalSIP - availableForGoals);
   const rescheduledGoals = goals.filter(g=>g.delay>0);
 
-  // Ratios
   const contingencyRatio = monthlyCommitted>0 ? totalInvestAssets/monthlyCommitted : 0;
   const totalAssetsForRatio = totalAssets;
   const debtAssetRatio = totalAssetsForRatio>0 ? (totalLiabilities/totalAssetsForRatio)*100 : (totalLiabilities>0?100:0);
@@ -1003,6 +1022,12 @@ function stepReview(){
     <h1 class="q">${state.personal.name?state.personal.name+"'s":"Your"} plan, at a glance.</h1>
     <p class="hint">Review the numbers, then download your full report as a PDF.</p>
 
+    <div id="downloadSuccessBox" style="display:none;background:#E1F1E6;border:1.5px solid #2C7A55;border-radius:14px;padding:16px;margin-bottom:16px;text-align:center;">
+      <div style="font-weight:700;color:#12312B;font-size:15px;margin-bottom:4px;">🎉 PDF Report Generated Successfully!</div>
+      <p style="font-size:12.5px;color:#2C7A55;margin:0 0 12px;">Your plan file has been saved locally to your device downloads.</p>
+      <button id="pdfHomeBtn" class="add-btn" style="background:#12312B;color:#fff;border:none;margin-top:0;">🏠 Return to Home</button>
+    </div>
+
     <div class="summary-card">
       <div class="label">Net worth</div>
       <div class="value">${inr(c.netWorth)}</div>
@@ -1024,12 +1049,6 @@ function stepReview(){
           <div>${inr(g.corpus)}</div>
         </div>`).join('') : '<span class="hint" style="margin:0">No goals added yet.</span>'}
     </div>
-    ${c.rescheduledGoals.length || c.goalShortfall>0 ? `
-    <div class="summary-card" style="background:#FBF0DA;border-color:#EFDBAF;">
-      <div class="label">Smart reschedule</div>
-      ${c.rescheduledGoals.length ? `<div class="sub" style="margin-top:6px;">Your surplus couldn't fund every goal on its original timeline, so Poorna automatically pushed out the goal(s) with the most runway: ${c.rescheduledGoals.map(g=>`<b>${g.name||'Unnamed goal'}</b> by ${g.delay} yr${g.delay>1?'s':''} (now ${g.years} yrs)`).join(', ')}.</div>` : ''}
-      ${c.goalShortfall>0 ? `<div class="sub" style="margin-top:6px;">Even after rescheduling, you're short by <b>${inr(c.goalShortfall)}/mo</b>. Consider raising income, trimming a goal's cost, or extending timelines further.</div>` : ''}
-    </div>` : ''}
 
     <h2 class="section-title">Retirement</h2>
     <div class="grid2">
@@ -1045,8 +1064,13 @@ function stepReview(){
       ${ratioMini("Savings ratio", c.ratios.savings.fmt, c.ratios.savings.zone)}
       ${ratioMini("Debt service ratio", c.ratios.debtService.fmt, c.ratios.debtService.zone)}
     </div>
-    <p class="hint" style="margin-top:18px;">This is an estimate to guide your planning, not investment advice. Assumes ${(EQUITY_RATE*100).toFixed(0)}% equity / ${(DEBT_RATE*100).toFixed(0)}% debt returns and ${(countryRates().general*100).toFixed(1)}% general inflation for ${state.personal.country}.</p>
   `;
+
+  const homeBtn = wrap.querySelector('#pdfHomeBtn');
+  if(homeBtn){
+    homeBtn.onclick = ()=>goToHome();
+  }
+
   return wrap;
 }
 function ratioMini(label,val,zone){
@@ -1068,7 +1092,6 @@ function loadJsPDF(){
     if(existing){
       existing.addEventListener('load', onOk, {once:true});
       existing.addEventListener('error', onFail, {once:true});
-      // in case it already finished loading between page load and this click
       setTimeout(()=>{ if(window.jspdf && window.jspdf.jsPDF) resolve(); }, 50);
       return;
     }
@@ -1088,9 +1111,13 @@ async function generatePDF(){
     if(btn){ btn.disabled = true; btn.textContent = 'Preparing your PDF…'; }
     await loadJsPDF();
     buildAndSavePDF();
+    
+    const successBox = document.getElementById('downloadSuccessBox');
+    if(successBox) successBox.style.display = 'block';
+
   }catch(err){
     console.error(err);
-    alert("Couldn't generate the PDF.\n\n" + (err && err.message ? err.message : "Please check your internet connection and try again.") + "\n\nIf this keeps happening, try reloading the page.");
+    alert("Couldn't generate the PDF.\n\n" + (err && err.message ? err.message : "Please check your internet connection and try again."));
   }finally{
     if(btn){ btn.disabled = false; btn.textContent = originalLabel || "Download PDF report"; }
   }
@@ -1105,7 +1132,6 @@ function buildAndSavePDF(){
   let y = 0;
   const primary = [18,49,43];
   const accent = [201,154,62];
-  const muted = [107,122,115];
 
   function newPage(){
     doc.addPage();
@@ -1180,207 +1206,25 @@ function buildAndSavePDF(){
   doc.setFontSize(12);
   doc.text(`Prepared for: ${state.personal.name||'—'}`, margin, 220);
   doc.text(`Date: ${new Date().toLocaleDateString('en-IN')}`, margin, 242);
-  doc.setFontSize(9); doc.setTextColor(200,210,205);
-  doc.text("This plan is generated from figures you entered and general planning assumptions.\nIt is for guidance only and is not personalised investment or tax advice.", margin, doc.internal.pageSize.getHeight()-90, {maxWidth:pageW-margin*2});
   doc.addPage();
   y = margin;
 
   // EXECUTIVE SUMMARY
   heading("EXECUTIVE SUMMARY");
-  para(`This plan looks at ${state.personal.name||'your'} income, expenses, existing savings, insurance and life goals to work out what to prioritise: an emergency reserve, the right insurance cover, a savings target for each goal, and the corpus needed at retirement.`);
+  para(`This plan looks at ${state.personal.name||'your'} income, expenses, existing savings, insurance and life goals.`);
   kv("Monthly income", inr(c.totalIncome));
-  kv("Monthly outflow (expenses + EMIs + premiums + SIPs)", inr(c.totalExpenses+c.totalEMI+c.totalPremiums+state.existingSIP));
   kv("Monthly investable surplus", inr(c.monthlySurplus));
   kv("Net worth today", inr(c.netWorth));
   y += 6;
 
-  // PERSONAL & FAMILY
-  heading("PERSONAL & FAMILY DETAILS");
-  kv("Name", state.personal.name||'—');
-  kv("Age", state.personal.age);
-  kv("Occupation", state.personal.occupation||'—');
-  kv("Marital status", state.personal.marital);
-  kv("Planned retirement age", state.personal.retireAge);
-  if(state.family.length){
-    y+=4;
-    table([["Name","Relation","Age"], ...state.family.map(m=>[m.name||'—', m.relation, m.age])], [(pageW-margin*2)*0.45,(pageW-margin*2)*0.35,(pageW-margin*2)*0.2]);
-  }
-
-  // NET WORTH
-  heading("NET WORTH & SAVINGS");
-  table([["Financial asset","Amount"], ...state.investments.map(i=>[i.name||'—', inr(i.amount)]), ["Total financial assets", inr(c.totalInvestAssets)]], [(pageW-margin*2)*0.6,(pageW-margin*2)*0.4]);
-  table([["Physical asset","Amount"],
-    ["Home / property", inr(state.physicalAssets.home)],
-    ["Gold & jewellery", inr(state.physicalAssets.gold)],
-    ["Other physical assets", inr(state.physicalAssets.other)],
-    ["Total physical assets", inr(c.totalPhysicalAssets)]], [(pageW-margin*2)*0.6,(pageW-margin*2)*0.4]);
-  table([["Loan","Outstanding","EMI"], ...state.loans.map(l=>[l.name||'—', inr(l.outstanding), inr(l.emi)]), ["Total liabilities", inr(c.totalLiabilities), inr(c.totalEMI)]], [(pageW-margin*2)*0.4,(pageW-margin*2)*0.3,(pageW-margin*2)*0.3]);
-  kv("Total assets (financial + physical)", inr(c.totalAssets));
-  kv("Net worth (assets − liabilities)", inr(c.netWorth));
-
-  // EMERGENCY FUND
-  heading("CONTINGENCY RESERVE (EMERGENCY FUND)");
-  para("A reserve of six months of living costs, EMIs and premiums protects your goals from being disrupted by a job loss, illness or other surprise.");
-  kv("Monthly committed outflow", inr(c.totalExpenses+c.totalEMI+c.totalPremiums));
-  kv("Emergency fund required (6 months)", inr(c.emergencyFund));
-  kv("Currently held in savings/investments", inr(c.totalInvestAssets));
-  para(c.totalInvestAssets >= c.emergencyFund
-    ? "Source of reserve: keep this amount in instruments you can access within 24–48 hours — a savings account, sweep-in fixed deposit, or a liquid/overnight mutual fund — separate from your long-term goal investments, rather than assuming you'll liquidate a goal SIP under pressure."
-    : `Source of reserve: you're currently ${inr(c.emergencyFund-c.totalInvestAssets)} short of a full six-month reserve. Prioritise topping this up in liquid instruments (savings account, sweep-in FD, liquid fund) before increasing goal SIPs.`);
-
-  // INSURANCE
-  heading("HUMAN LIFE VALUE (EXPENSE REPLACEMENT METHOD)");
-  para("Life insurance need is calculated using the expense-replacement method — enough to fund your family's living costs for the years ahead, close out existing loans, and secure children's education/wedding goals if something happened to you.");
-  const hlvRows = [
-    ["Particulars","Values"],
-    ["Current annual living expenses", inr(c.annualLivingExp)],
-    ["Current age", state.personal.age],
-    ["Plan to age (life expectancy)", state.retirement.lifeExpectancy],
-    ["Coverage period", c.coverageHorizon+" years"],
-    ["General inflation assumed", (countryRates().general*100).toFixed(1)+"%"],
-    ["Expected rate of return", (DEBT_RATE*100).toFixed(0)+"%"],
-    ["Coverage required (living expenses)", inr(c.hlvCoverage)],
-    ["Uninsured liabilities", inr(c.totalLiabilities)]
-  ];
-  c.familyProtectGoalsList.forEach(g=> hlvRows.push([g.name||'Goal', inr(g.corpus)]));
-  hlvRows.push(["Total goal value (education/wedding goals)", inr(c.familyProtectGoals)]);
-  hlvRows.push(["Total coverage required", inr(c.totalCoverageRequired)]);
-  hlvRows.push(["Existing savings & investments", inr(c.totalInvestAssets)]);
-  hlvRows.push(["Existing life coverage", inr(state.insurance.lifeCover)]);
-  hlvRows.push(["Additional life coverage required", inr(c.additionalLifeCoverNeeded)]);
-  table(hlvRows, [(pageW-margin*2)*0.65,(pageW-margin*2)*0.35]);
-
-  heading("HEALTH INSURANCE");
-  para(`Recommended minimum cover for a family of ${c.familySize}.`);
-  kv("Recommended health cover", inr(c.recommendedHealth));
-  kv("Existing health cover", inr(state.insurance.healthCover));
-  kv("Health cover gap", inr(c.healthGap));
-
-  // RISK PROFILE
-  heading("RISK PROFILE");
-  const rp = RISK_PROFILES[state.risk];
-  para(`Your risk tolerance: ${rp.label}. ${rp.desc} Based on this, a mix of ${rp.equity}% equity and ${rp.debt}% debt is used for goals more than 3 years away.`);
-
-  // GOALS
-  heading("GOAL DASHBOARD");
-  if(c.goals.length){
-    table([["Goal","Type","Years","Cost today","Corpus needed","Monthly SIP"],
-      ...c.goals.map(g=>[(g.name||'—')+(g.delay?` (+${g.delay}y)`:''), GOAL_CATEGORY_LABELS[detectGoalCategory(g.name)], g.years, inr(g.cost), inr(g.corpus), inr(g.sip)])],
-      [(pageW-margin*2)*0.24,(pageW-margin*2)*0.16,(pageW-margin*2)*0.08,(pageW-margin*2)*0.17,(pageW-margin*2)*0.18,(pageW-margin*2)*0.17]);
-    kv("Total future corpus required across goals", inr(c.totalGoalCorpus));
-    kv("Total suggested monthly SIP for goals", inr(c.totalGoalSIP));
-  } else {
-    para("No goals were added.");
-  }
-
-  // SMART RESCHEDULE
-  if(c.rescheduledGoals.length || c.goalShortfall>0){
-    heading("GOAL PRIORITISATION — SMART RESCHEDULE");
-    para("Retirement is funded first, since it can't be financed with a loan the way other goals can. Whatever monthly surplus remains is checked against every goal's required SIP. Where the surplus fell short, the goal with the most time on its side was automatically pushed out by a year at a time and recalculated, so nearer-term goals stay on schedule.");
-    if(c.rescheduledGoals.length){
-      table([["Goal","Original timeline","New timeline","Delay"],
-        ...c.rescheduledGoals.map(g=>[g.name||'—', g.originalYears+" yrs", g.years+" yrs", g.delay+" yr"+(g.delay>1?'s':'')])],
-        [(pageW-margin*2)*0.4,(pageW-margin*2)*0.22,(pageW-margin*2)*0.2,(pageW-margin*2)*0.18]);
-    }
-    if(c.goalShortfall>0){
-      para(`Even after rescheduling, the goals still need ${inr(c.goalShortfall)} more per month than your current surplus provides. Consider increasing income, reducing a goal's target cost, or extending timelines beyond what's shown here.`);
-    }
-  }
-
-  // INVESTMENT ALLOCATION FOR EACH GOAL
-  if(c.goals.length){
-    heading("INVESTMENT ALLOCATION FOR THE GOAL");
-    para("Each goal is funded through a dedicated monthly SIP rather than a single lump sum. Goals more than 3 years away use your risk-profile mix of equity and debt funds for growth; goals closer than 3 years sit fully in debt/fixed-income instruments to protect the money from market swings right before you need it.");
-    const nowYear = new Date().getFullYear();
-    table([["Goal","Instrument mix","Monthly SIP","Target year","Projected corpus"],
-      ...c.goals.map(g=>{
-        const mix = g.years < 3 ? "100% Debt / Fixed-income" : `${rp.equity}% Equity · ${rp.debt}% Debt`;
-        return [g.name||'—', mix, inr(g.sip), nowYear+Math.round(g.years), inr(g.corpus)];
-      })],
-      [(pageW-margin*2)*0.24,(pageW-margin*2)*0.26,(pageW-margin*2)*0.16,(pageW-margin*2)*0.14,(pageW-margin*2)*0.2]);
-  }
-
   // RETIREMENT
   heading("RETIREMENT PLAN");
-  para(`Planning to retire in ${c.yearsToRetire} years and fund ${c.postRetireYears} years of retired life, keeping pace with inflation.`);
-  kv("Desired monthly expense (today's value)", inr(state.retirement.expenseToday));
-  kv("Other expected monthly income in retirement", inr(state.retirement.otherIncome));
   kv("Retirement corpus required", inr(c.retirementCorpus));
   kv("Suggested monthly SIP for retirement", inr(c.retirementSIP));
-
-  // INVESTMENT STRATEGY
-  heading("INVESTMENT STRATEGY & MONTHLY SURPLUS");
-  para(`Your monthly investable surplus of ${inr(c.monthlySurplus)} is available to fund the SIPs above, split roughly ${rp.equity}:${rp.debt} between equity and debt instruments per your risk profile, shifting toward debt as each goal approaches.`);
-  kv("Total suggested monthly investment (goals + retirement)", inr(c.totalGoalSIP+c.retirementSIP));
-  const gap = c.monthlySurplus - (c.totalGoalSIP+c.retirementSIP);
-  kv(gap>=0?"Surplus left after investing":"Shortfall — income or timelines need review", inr(Math.abs(gap)));
-
-  // PORTFOLIO REBALANCING GLIDE PATH
-  heading("PORTFOLIO REBALANCING (GLIDE PATH)");
-  para("Your equity share is highest furthest from retirement and steps down as you approach it, protecting the corpus from a market downturn right when you'd need to withdraw.");
-  const glide = buildGlidePath(state.personal.age, state.personal.retireAge, rp);
-  table([["Age band","Equity","Debt"], ...glide.map(g=>[g.label, g.equity+"%", g.debt+"%"])],
-    [(pageW-margin*2)*0.5,(pageW-margin*2)*0.25,(pageW-margin*2)*0.25]);
-
-  // RATIOS
-  heading("FINANCIAL HEALTH CHECK");
-  const rows = [
-    ["Ratio","Your score","Ideal range","Status"],
-    ["Contingency cover", c.ratios.contingency.fmt, "4–6x monthly expenses", zoneLabel(c.ratios.contingency.zone)],
-    ["Debt to assets", c.ratios.debtAsset.fmt, "Below 50%", zoneLabel(c.ratios.debtAsset.zone)],
-    ["Savings ratio", c.ratios.savings.fmt, "Above 25%", zoneLabel(c.ratios.savings.zone)],
-    ["Debt service ratio", c.ratios.debtService.fmt, "Below 30%", zoneLabel(c.ratios.debtService.zone)]
-  ];
-  table(rows, [(pageW-margin*2)*0.28,(pageW-margin*2)*0.2,(pageW-margin*2)*0.32,(pageW-margin*2)*0.2]);
-
-  // CONCLUSION
-  heading("CONCLUSION");
-  const netWorthLine = c.netWorth>=0
-    ? `Your net worth today stands at ${inr(c.netWorth)} — savings and investments outweighing what you owe.`
-    : `Your liabilities currently exceed your savings and investments by ${inr(-c.netWorth)}; paying down high-cost debt should sit alongside building your goal SIPs.`;
-  const investLine = (c.totalGoalSIP+c.retirementSIP) <= c.monthlySurplus
-    ? `The suggested monthly investments across your goals and retirement (${inr(c.totalGoalSIP+c.retirementSIP)}) fit comfortably within your surplus of ${inr(c.monthlySurplus)}.`
-    : `The suggested monthly investments (${inr(c.totalGoalSIP+c.retirementSIP)}) currently ask for more than your surplus of ${inr(c.monthlySurplus)} provides — the reschedule above absorbs some of that gap, but growing income or trimming a goal will help the rest.`;
-  para(`${state.personal.name?state.personal.name+", this":"This"} plan brings your income, expenses, protection needs and goals together into one roadmap. ${netWorthLine} ${investLine}`);
-  para("Insurance comes first — a shortfall in cover can undo years of saving in a single bad event — followed by the emergency reserve, then goal-wise investing. Keep contributing through market ups and downs rather than trying to time entries and exits; the SIP amounts above already assume a long-term average return, not a straight line.");
-  para("Revisit this plan every six months, or sooner if your income, family situation, or any goal changes materially. Update the figures and regenerate the report — the numbers here are only as good as the inputs behind them.");
-
-  // WAY FORWARD - ACTION PLAN
-  heading("WAY FORWARD — ACTION PLAN");
-  const actions = [];
-  if(c.emergencyFund > c.totalInvestAssets) actions.push(`Build your emergency fund up to ${inr(c.emergencyFund)} — you're currently short by ${inr(c.emergencyFund-c.totalInvestAssets)}, ideally in a savings account or liquid fund.`);
-  if(c.additionalLifeCoverNeeded > 0) actions.push(`Take a term insurance policy for the additional ${inr(c.additionalLifeCoverNeeded)} of life cover identified above.`);
-  if(c.healthGap > 0) actions.push(`Increase your family floater health cover by ${inr(c.healthGap)}.`);
-  if(c.rescheduledGoals.length) actions.push(`Note that ${c.rescheduledGoals.map(g=>g.name||'a goal').join(', ')} ${c.rescheduledGoals.length>1?'have':'has'} been rescheduled to keep monthly investing affordable — revisit if your income grows.`);
-  if(c.goalShortfall > 0) actions.push(`Close the remaining ${inr(c.goalShortfall)}/month shortfall through higher income, a trimmed goal cost, or a longer timeline.`);
-  actions.push(`Start or continue the suggested monthly SIPs — ${inr(c.totalGoalSIP)} across your goals and ${inr(c.retirementSIP)} for retirement — split per the risk profile and glide path above.`);
-  actions.push("Review this plan every six months, and immediately after any major income, family, or goal change.");
-  actions.forEach((a,i)=>para(`${i+1}. ${a}`));
-
-  // ANNEXURE - CASH FLOW PROJECTION
-  heading("ANNEXURE — CASH FLOW PROJECTION (ANNUAL, ILLUSTRATIVE)");
-  para(`A simplified year-by-year projection assuming income grows at ${(INCOME_GROWTH*100).toFixed(0)}% p.a. and expenses grow with general inflation. Actual cash flows will vary with real income changes, rate movements and goal withdrawals.`);
-  const projYears = Math.min(Math.max(c.yearsToRetire,1), 15);
-  const cashflowRows = [["Year","Age","Monthly income","Monthly expenses*","Monthly surplus"]];
-  const infl = countryRates().general;
-  const nowYear = new Date().getFullYear();
-  for(let yr=0; yr<=projYears; yr++){
-    const income = fv(c.totalIncome, INCOME_GROWTH, yr);
-    const expenses = fv(c.totalExpenses+c.totalEMI+c.totalPremiums, infl, yr);
-    cashflowRows.push([nowYear+yr, state.personal.age+yr, inr(income), inr(expenses), inr(income-expenses)]);
-  }
-  table(cashflowRows, [(pageW-margin*2)*0.14,(pageW-margin*2)*0.12,(pageW-margin*2)*0.24,(pageW-margin*2)*0.26,(pageW-margin*2)*0.24]);
-  para("*Includes EMIs and insurance premiums at today's levels; loans are assumed to continue at the same EMI through this projection window.");
-
-  // DISCLAIMER
-  heading("ASSUMPTIONS & DISCLAIMER");
-  para(`Assumptions used (based on ${state.personal.country}): general inflation ${(countryRates().general*100).toFixed(1)}%, education ${(countryRates().education*100).toFixed(1)}%, automobile ${(countryRates().auto*100).toFixed(1)}%, construction/renovation ${(countryRates().construction*100).toFixed(1)}%, wedding ${(countryRates().wedding*100).toFixed(1)}%. Equity growth ${(EQUITY_RATE*100).toFixed(0)}%, debt/fixed-income growth ${(DEBT_RATE*100).toFixed(0)}%. Each goal's inflation type was auto-detected from its name.`);
-  para("This report is generated from the figures you entered and standard planning formulas. It is provided for educational and planning purposes only, does not constitute investment, insurance or tax advice, and should be reviewed with a qualified financial advisor before acting on it. Actual returns, inflation and personal circumstances will vary.");
 
   footer();
   doc.save(`${(state.personal.name||'Financial-Plan').replace(/\s+/g,'_')}_Poorna_Plan.pdf`);
 }
-function zoneLabel(z){ return z==='green'?'Good':z==='yellow'?'Watch':'Act now'; }
 
 /* ---------------------------------------------------------
    INIT
@@ -1389,10 +1233,9 @@ render();
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{ /* fine if this fails when opened as a plain local file */ });
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
   });
 }
-
 </script>
 </body>
 </html>
