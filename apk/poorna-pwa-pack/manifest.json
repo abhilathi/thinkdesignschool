@@ -6,7 +6,7 @@
   "orientation": "any",
   "scope": "/",
   "short_name": "Poorna",
-  "start_url": "/",
+  "start_url": "https://thinkdesignschool.com/apk/poorna-pwa-pack/",
   "theme_color": "#12312B",
   "icons": [
     {
