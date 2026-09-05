@@ -1,9 +1,9 @@
 Keep this file and signing.keystore in a safe place. You'll need these files if you want to upload future versions of your PWA to the Google Play Store.
 
 Key store file: signing.keystore
-Key store password: jL1nBtZj1ryV
+Key store password: xamCRQ4foYXb
 Key alias: my-key-alias
-Key password: jL1nBtZj1ryV
+Key password: xamCRQ4foYXb
 Signer's full name: Poorna Admin
 Signer's organization: Poorna — Financial Plan
 Signer's organizational unit: Engineering
